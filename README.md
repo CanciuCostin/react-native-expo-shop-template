@@ -12,6 +12,7 @@ Welcome to the **React Native Expo Template** repository! This project is your g
 - **TypeScript Support**: Includes full TypeScript setup for safer and more robust code.
 - **Component Library**: Pre-built, reusable components to accelerate your development process.
 - **ESLint & Prettier**: Pre-configured with ESLint and Prettier for consistent and clean code.
+- **Husky pre-commit hooks**: Run ESLint & Prettier before you push your code.
 - **Testing Ready**: Setup for unit and integration tests with [Jest](https://jestjs.io/) and [React Native Testing Library](https://callstack.github.io/react-native-testing-library/).
 - **Fast Refresh**: Instant feedback as you save your changes with Expo's fast refresh feature.
 - **OTA Updates**: Seamlessly push over-the-air updates to your users without app store re-approvals.
