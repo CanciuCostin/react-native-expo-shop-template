@@ -2,8 +2,8 @@ export type Product = {
   categoryId: number;
   productId: number;
   productTitle: string;
-  photos: Array<string>;
-  productTags: Array<number>;
+  photos: string[];
+  productTags: number[];
   productDescription: string;
 };
 

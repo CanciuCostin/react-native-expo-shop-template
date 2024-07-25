@@ -1,13 +1,20 @@
-import { Button, View, Text, StyleSheet } from "react-native";
-import { useState } from "react";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { Button, View, Text, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+  },
+});
 
 export default function CustomDateTimePicker() {
-  const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
 
-  const onChange = (event: any, selectedDate: any) => {
+  const onChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
@@ -18,12 +25,12 @@ export default function CustomDateTimePicker() {
   };
 
   const showDatepicker = () => {
-    showMode("date");
+    showMode('date');
   };
 
-  const showTimepicker = () => {
-    showMode("time");
-  };
+  // const showTimepicker = () => {
+  //   showMode('time');
+  // };
 
   return (
     <View style={styles.container}>
@@ -41,11 +48,3 @@ export default function CustomDateTimePicker() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 20,
-  },
-});

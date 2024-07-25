@@ -43,6 +43,7 @@ export default [...compat.extends(
         react: {
             version: "detect",
         },
+        'import/ignore': ['react-native'],
     },
 
     rules: {
@@ -51,5 +52,7 @@ export default [...compat.extends(
         "react/prop-types": "off",
         "no-console": "error",
         "prettier/prettier": "off",
+        "no-redeclare": "off",
+        "@typescript-eslint/no-redeclare": "off",
     },
 }];
