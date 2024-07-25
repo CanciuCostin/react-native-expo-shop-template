@@ -71,7 +71,7 @@ We welcome contributions! Please check out our contributing guidelines to get st
 
 ## 📄 License
 
-This project is licensed under the Apache License - see the LICENSE file for details.
+This project is licensed under the Apache-2.0 License - see the LICENSE file for details.
 
 ## ⭐ Show Your Support
 
