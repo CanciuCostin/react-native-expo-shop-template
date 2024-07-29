@@ -3,10 +3,38 @@ import { Product, Category } from '@models/types';
 
 describe('ProductsHelper', () => {
   const products: Product[] = [
-    { categoryId: 1, productId: 101, productTitle: 'Product 1', photos: ['photo1.jpg'], productTags: [1, 2], productDescription: 'Description 1' },
-    { categoryId: 1, productId: 102, productTitle: 'Product 2', photos: ['photo2.jpg'], productTags: [2, 3], productDescription: 'Description 2' },
-    { categoryId: 2, productId: 103, productTitle: 'Product 3', photos: ['photo3.jpg'], productTags: [1], productDescription: 'Description 3' },
-    { categoryId: 2, productId: 104, productTitle: 'Product 4', photos: ['photo4.jpg'], productTags: [2, 3], productDescription: 'Description 4' },
+    {
+      categoryId: 1,
+      productId: 101,
+      productTitle: 'Product 1',
+      photos: ['photo1.jpg'],
+      productTags: [1, 2],
+      productDescription: 'Description 1',
+    },
+    {
+      categoryId: 1,
+      productId: 102,
+      productTitle: 'Product 2',
+      photos: ['photo2.jpg'],
+      productTags: [2, 3],
+      productDescription: 'Description 2',
+    },
+    {
+      categoryId: 2,
+      productId: 103,
+      productTitle: 'Product 3',
+      photos: ['photo3.jpg'],
+      productTags: [1],
+      productDescription: 'Description 3',
+    },
+    {
+      categoryId: 2,
+      productId: 104,
+      productTitle: 'Product 4',
+      photos: ['photo4.jpg'],
+      productTags: [2, 3],
+      productDescription: 'Description 4',
+    },
   ];
 
   const categories: Category[] = [
@@ -16,24 +44,57 @@ describe('ProductsHelper', () => {
 
   describe('getProductsBasedOnCategoryAndTags', () => {
     it('should return products of the specified category and matching selected tags', () => {
-      const result = ProductsHelper.getProductsBasedOnCategoryAndTags(1, [1], products);
+      const result = ProductsHelper.getProductsBasedOnCategoryAndTags(
+        1,
+        [1],
+        products,
+      );
       expect(result).toHaveLength(1);
       expect(result).toEqual([
-        { categoryId: 1, productId: 101, productTitle: 'Product 1', photos: ['photo1.jpg'], productTags: [1, 2], productDescription: 'Description 1' },
+        {
+          categoryId: 1,
+          productId: 101,
+          productTitle: 'Product 1',
+          photos: ['photo1.jpg'],
+          productTags: [1, 2],
+          productDescription: 'Description 1',
+        },
       ]);
     });
 
     it('should return products of the specified category without filtering by tags if no tags are selected', () => {
-      const result = ProductsHelper.getProductsBasedOnCategoryAndTags(1, [], products);
+      const result = ProductsHelper.getProductsBasedOnCategoryAndTags(
+        1,
+        [],
+        products,
+      );
       expect(result).toHaveLength(2);
       expect(result).toEqual([
-        { categoryId: 1, productId: 101, productTitle: 'Product 1', photos: ['photo1.jpg'], productTags: [1, 2], productDescription: 'Description 1' },
-        { categoryId: 1, productId: 102, productTitle: 'Product 2', photos: ['photo2.jpg'], productTags: [2, 3], productDescription: 'Description 2' },
+        {
+          categoryId: 1,
+          productId: 101,
+          productTitle: 'Product 1',
+          photos: ['photo1.jpg'],
+          productTags: [1, 2],
+          productDescription: 'Description 1',
+        },
+        {
+          categoryId: 1,
+          productId: 102,
+          productTitle: 'Product 2',
+          photos: ['photo2.jpg'],
+          productTags: [2, 3],
+          productDescription: 'Description 2',
+        },
       ]);
     });
 
     it('should return an empty array if no products match the categoryId and tags', () => {
-      const result = ProductsHelper.getProductsBasedOnCategoryAndTags(3, [1], products);
+      const result = ProductsHelper.getProductsBasedOnCategoryAndTags(
+        3,
+        [1],
+        products,
+      );
       expect(result).toHaveLength(0);
     });
   });

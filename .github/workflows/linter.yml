@@ -11,7 +11,7 @@ on:
       - master
 
 jobs:
-  linter:
+  Linter:
     runs-on: ${{ matrix.os }}
 
     strategy:
