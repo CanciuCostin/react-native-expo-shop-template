@@ -4,6 +4,7 @@ import ProductsListVertical from '@components/ProductsListVertical';
 import { RootState } from '@state/store';
 import { useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
+import LanguageSwitcher from '@components/LanguageSwitcher';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +33,11 @@ export default function CategoryDetailsScreen() {
   );
 
   return (
+    //<I18nextProvider i18n={i18n}>
+
     <View style={styles.container}>
+      <LanguageSwitcher />
+
       <ProductsListVertical
         products={ProductsHelper.getProductsBasedOnCategoryAndTags(
           selectedCategoryId,

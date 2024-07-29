@@ -2,6 +2,7 @@ import { RootState } from '@state/store';
 import { Stack } from 'expo-router';
 import { useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
+import { useTranslation } from 'react-i18next';
 
 const CategoryDetailsLayout = () => {
   const categories = useSelector(
@@ -10,11 +11,13 @@ const CategoryDetailsLayout = () => {
   const selectedCategoryId = useSelector(
     (state: RootState) => state.productsData.selectedCategoryId,
   );
+  const { t } = useTranslation();
+
   return (
     <Stack
       screenOptions={{
         headerShown: true,
-        headerTitle: 'Products',
+        headerTitle: t('productsHeader'),
       }}
     >
       <Stack.Screen

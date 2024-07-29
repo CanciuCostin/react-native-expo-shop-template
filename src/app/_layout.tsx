@@ -24,6 +24,8 @@ import {
   DUMMY_PRODUCTS,
   DUMMY_CATEGORY_TAGS,
 } from '@data/DummyDataArrays';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '@i18n/config';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -96,9 +98,11 @@ function RootLayout() {
 }
 
 const AppProvider = () => (
-  <Provider store={store}>
-    <RootLayout />
-  </Provider>
+  <I18nextProvider i18n={i18n}>
+    <Provider store={store}>
+      <RootLayout />
+    </Provider>
+  </I18nextProvider>
 );
 
 export default AppProvider;
