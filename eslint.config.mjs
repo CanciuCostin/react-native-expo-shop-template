@@ -24,6 +24,7 @@ export default [...compat.extends(
             ...globals.node,
             ...globals.browser,
             ...globals.amd,
+            ...globals.jest,
         },
 
         parser: tsParser,
@@ -54,5 +55,14 @@ export default [...compat.extends(
         "prettier/prettier": "off",
         "no-redeclare": "off",
         "@typescript-eslint/no-redeclare": "off",
+        "import/no-extraneous-dependencies":[
+            "off",
+            {
+                "devDependencies":[
+                    "**/*.test.ts",
+                    "**/*.test.tsx"
+                ]
+            }
+            ],
     },
 }];

@@ -3,6 +3,10 @@
 # dependencies
 node_modules/
 
+# testing
+coverage/
+.jest/
+
 # Expo
 .expo/
 dist/

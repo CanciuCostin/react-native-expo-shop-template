@@ -1,4 +1,4 @@
-name: ci
+name: Linter and style check
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - master
 
 jobs:
-  ci:
+  linter:
     runs-on: ${{ matrix.os }}
 
     strategy:

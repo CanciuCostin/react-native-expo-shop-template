@@ -1,17 +1,27 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "module": "esnext",
     "strict": true,
+    "baseUrl": "./",
     "paths": {
       "@*": [
-        "./src/*"
-      ]
-    }
+        "./src/*",
+      ],
+      "@components/*": ["src/components/*"],
+      "@state/*": ["src/state/*"],
+      "@test-utils/*": ["src/test-utils/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@models/*": ["src/models/*"]
+
+    },
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+    "expo-env.d.ts",
+    "src",
+  ],
+  "types": ["jest", "react-native"]
 }
