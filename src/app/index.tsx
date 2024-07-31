@@ -75,7 +75,7 @@ export default function SplashAnimation() {
       />
       <Image
         resizeMode="contain"
-        source={require('@assets/images/appIcon.png')}
+        source={require('@assets/images/splash.png')}
         style={styles.appIcon}
       />
     </View>
