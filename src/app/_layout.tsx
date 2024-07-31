@@ -32,68 +32,27 @@ export {
   ErrorBoundary,
 } from 'expo-router';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
+        {
+          <Stack.Screen
+            name="videoPlayerModal"
+            options={{ presentation: 'transparentModal', headerShown: false }}
+          />
+        }
       </Stack>
     </ThemeProvider>
   );
 }
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
 function RootLayout() {
-  const [fontsLoaded, fontsError] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-  const [dataLoaded, setDataLoaded] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    // Perform some sort of async data or asset fetching.a
-    setTimeout(() => {
-      // dispatch(setProductsAsync(DUMMY_PRODUCTS));
-      // dispatch(setCategoriesAsync(DUMMY_CATEGORIES));
-      // dispatch(setTagsAsync(DUMMY_CATEGORY_TAGS));
-      Promise.all([
-        dispatch(setProductsAsync(DUMMY_PRODUCTS)),
-        dispatch(setCategoriesAsync(DUMMY_CATEGORIES)),
-        dispatch(setTagsAsync(DUMMY_CATEGORY_TAGS)),
-      ]).then(() => {
-        setDataLoaded(true);
-      });
-    }, 5000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (fontsError) throw fontsError;
-  }, [fontsError]);
-
-  useEffect(() => {
-    if (fontsLoaded && dataLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, dataLoaded]);
-
-  // if (!loaded) {
-  //   return null;
-  // }
-
   return <RootLayoutNav />;
 }
 

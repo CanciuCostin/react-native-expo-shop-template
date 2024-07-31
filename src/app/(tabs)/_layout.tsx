@@ -42,7 +42,7 @@ export default function TabLayout() {
           title: 'Categories',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
-            <Link href="/#" asChild>
+            <Link href="/videoPlayerModal" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
