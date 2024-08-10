@@ -1,11 +1,5 @@
-import {
-  FlatList,
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import { Category } from '@models/types';
+import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Category } from '@models/Types';
 import { Link } from 'expo-router';
 import ProductsListHorizontal from '@components/ProductsListHorizontal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,53 +7,14 @@ import { AppDispatch, RootState } from '@state/store';
 import ProductsHelper from '@helpers/ProductsHelper';
 import { setSelectedCategoryId } from '@state/productsDataSlice';
 import Screens from '@constants/Screens';
+import CustomText from '@components/CustomText';
 
 const styles = StyleSheet.create({
   categoriesContainer: {
-    width: '100%',
-    paddingTop: 10,
-  },
-  categoryContainer: {
-    flex: 1,
-    margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 215,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
-    borderRadius: 20,
-  },
-  categoriesPhoto: {
-    width: '100%',
-    height: 155,
-    borderRadius: 20,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    shadowColor: 'blue',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    elevation: 3,
-  },
-  categoriesName: {
-    flex: 1,
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#333333',
-    marginTop: 8,
-  },
-  categoriesInfo: {
-    marginTop: 3,
-    marginBottom: 5,
+    paddingTop: '1%',
   },
   categoryName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    paddingLeft: 10,
+    paddingLeft: '3%',
   },
 });
 
@@ -87,7 +42,9 @@ export default function CategoriesList() {
         <TouchableOpacity
           onPress={() => dispatch(setSelectedCategoryId(item.categoryId))}
         >
-          <Text style={styles.categoryName}>{item.categoryName}</Text>
+          <CustomText fontSize="2.2%" isBold style={styles.categoryName}>
+            {item.categoryName}
+          </CustomText>
         </TouchableOpacity>
       </Link>
       <ProductsListHorizontal

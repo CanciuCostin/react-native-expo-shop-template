@@ -1,5 +1,5 @@
 import ProductsHelper from '@helpers/ProductsHelper';
-import { Product, Category } from '@models/types';
+import { Product, Category } from '@models/Types';
 
 describe('ProductsHelper', () => {
   const products: Product[] = [

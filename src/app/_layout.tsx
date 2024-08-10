@@ -1,31 +1,15 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
-import { useColorScheme } from '@components/useColorScheme';
-import { AppDispatch } from '@state/store';
-import { useDispatch } from 'react-redux';
+import { useColorScheme } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from '@state/store';
-import {
-  setProductsAsync,
-  setCategoriesAsync,
-  setTagsAsync,
-} from '@state/productsDataSlice';
-import {
-  DUMMY_CATEGORIES,
-  DUMMY_PRODUCTS,
-  DUMMY_CATEGORY_TAGS,
-} from '@data/DummyDataArrays';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '@i18n/config';
+import {
+  CyanDeepPurpleDarkTheme,
+  CyanDeepPurpleLightTheme,
+} from '@themes/Themes';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -34,13 +18,17 @@ export {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider
+      value={
+        colorScheme === 'dark'
+          ? CyanDeepPurpleDarkTheme
+          : CyanDeepPurpleLightTheme
+      }
+    >
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
         {
           <Stack.Screen
             name="videoPlayerModal"

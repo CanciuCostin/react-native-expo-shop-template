@@ -1,4 +1,4 @@
-import { ProductTag } from '@models/types';
+import { ProductTag } from '@models/Types';
 
 export const DUMMY_CATEGORY_TAGS: ProductTag[] = [
   {

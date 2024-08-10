@@ -16,6 +16,24 @@ import {
 import { AppDispatch } from '@state/store';
 import { useFonts } from 'expo-font';
 import { useDispatch } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingBottom: '90%',
+    alignItems: 'center',
+    alignContent: 'space-between',
+  },
+  lottieImage: {
+    width: '40%',
+    height: '40%',
+    top: '40%',
+  },
+  appIcon: {
+    width: '100%',
+  },
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,14 +42,15 @@ export default function SplashAnimation() {
   // setTimeout(() => {
   //   router.navigate('(tabs)');
   // }, 5000);
-
   const [fontsLoaded, fontsError] = useFonts({
-    SpaceMono: require('@assets/fonts/SpaceMono-Regular.ttf'),
+    RobotoRegular: require('@assets/fonts/Roboto-Regular.ttf'),
+    RobotoBold: require('@assets/fonts/Roboto-Bold.ttf'),
     ...FontAwesome.font,
   });
   const [dataLoaded, setDataLoaded] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const lottieAnimationRef = useRef<LottieView>(null);
+  const { colors } = useTheme();
 
   useEffect(() => {
     // Perform some sort of async data or asset fetching.a
@@ -66,7 +85,12 @@ export default function SplashAnimation() {
   }, [fontsLoaded, dataLoaded]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.splashScreenBackground },
+      ]}
+    >
       <LottieView
         resizeMode="contain"
         ref={lottieAnimationRef}
@@ -81,21 +105,3 @@ export default function SplashAnimation() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingBottom: '90%',
-    alignItems: 'center',
-    alignContent: 'space-between',
-    backgroundColor: '#24a8af',
-  },
-  lottieImage: {
-    width: '40%',
-    height: '40%',
-    top: '40%',
-  },
-  appIcon: {
-    width: '100%',
-  },
-});

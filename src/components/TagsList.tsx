@@ -4,12 +4,13 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  Text,
 } from 'react-native';
-import { ProductTag } from '@models/types';
+import { ProductTag } from '@models/Types';
 import { AppDispatch, RootState } from '@state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTag } from '@state/productsDataSlice';
+import { useTheme } from '@react-navigation/native';
+import CustomText from './CustomText';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,8 +18,8 @@ const styles = StyleSheet.create({
   },
   item: {
     paddingHorizontal: 10,
-    backgroundColor: 'red',
-    borderRadius: 20,
+    borderRadius: 10,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 10,
@@ -29,13 +30,25 @@ const styles = StyleSheet.create({
 export default function TagsList() {
   const tags = useSelector((state: RootState) => state.productsData.tags);
   const dispatch = useDispatch<AppDispatch>();
+  const { colors } = useTheme();
+  const { selectedTags } = useSelector(
+    (state: RootState) => state.productsData,
+  );
 
   const renderTagItem = ({ item }: { item: ProductTag }) => (
     <TouchableOpacity
       onPress={() => dispatch(setSelectedTag(item.tagId))}
-      style={styles.item}
+      style={[
+        styles.item,
+        {
+          backgroundColor: colors.card,
+          borderColor: selectedTags.includes(item.tagId)
+            ? colors.primary
+            : colors.border,
+        },
+      ]}
     >
-      <Text style={styles.title}>{item.tagName}</Text>
+      <CustomText style={styles.title}>{item.tagName}</CustomText>
     </TouchableOpacity>
   );
 

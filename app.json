@@ -7,19 +7,35 @@
     "icon": "./src/assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./src/assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#24a8af"
-    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "./src/assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#673AB7",
+        "dark": {
+             "image": "./src/assets/images/splash.png",
+             "resizeMode": "contain",
+             "backgroundColor": "#ffffff"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "softwareKeyboardLayoutMode": "pan",
+      "splash": {
+        "image": "./src/assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#673AB7",
+        "dark": {
+             "image": "./src/assets/images/splash.png",
+             "resizeMode": "contain",
+             "backgroundColor": "#ffffff"
+        }
+      }      
     },
     "web": {
       "bundler": "metro",

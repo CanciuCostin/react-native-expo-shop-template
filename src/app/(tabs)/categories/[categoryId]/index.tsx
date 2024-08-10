@@ -4,23 +4,11 @@ import ProductsListVertical from '@components/ProductsListVertical';
 import { RootState } from '@state/store';
 import { useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
-import LanguageSwitcher from '@components/LanguageSwitcher';
+import LanguageSwitcher from '@components/input/LanguageSwitcher';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
   },
 });
 

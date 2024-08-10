@@ -1,113 +1,78 @@
 import React, { useRef, useState } from 'react';
 import {
   ScrollView,
-  Text,
   View,
   Image,
   Dimensions,
   TouchableHighlight,
-  Button,
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { StyleSheet } from 'react-native';
-import { Product } from '@models/types';
+import { Product } from '@models/Types';
 import { RootState } from '@state/store';
 import { useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
-import { Link } from 'expo-router';
-import Screens from '@constants/Screens';
+import CustomText from '@components/CustomText';
+import { useTheme } from '@react-navigation/native';
+import CustomButton from '@components/input/CustomButton';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import { FontAwesome } from '@expo/vector-icons';
+import Strings from '@constants/Strings';
 
 const { width: viewportWidth } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    flex: 1,
-  },
   carouselContainer: {
-    minHeight: 250,
+    height: hp('30%'),
   },
-  carousel: {},
-
   image: {
-    ...StyleSheet.absoluteFillObject,
     width: '100%',
-    height: 250,
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    width: viewportWidth,
-    height: 250,
+    height: hp('30%'),
+    borderRadius: 10,
   },
   paginationContainer: {
     flex: 1,
     position: 'absolute',
     alignSelf: 'center',
-    paddingVertical: 8,
-    marginTop: 200,
+    paddingVertical: hp('1.5%'),
+    marginTop: hp('25%'),
   },
   paginationDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 0,
+    width: hp('1.3%'),
+    height: hp('1.3%'),
+    borderRadius: 10,
   },
-  infoRecipeContainer: {
+  productInfoContainer: {
     flex: 1,
-    margin: 25,
-    marginTop: 20,
+    marginTop: hp('2%'),
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: wp('5%'),
   },
-  infoContainer: {
+  durationContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    width: '100%',
+    height: hp('5%'),
   },
-  infoPhoto: {
-    height: 20,
-    width: 20,
-    marginRight: 0,
-  },
-  infoRecipe: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginLeft: 5,
-  },
-  category: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    margin: 10,
-    color: '#2cd18a',
-  },
-  infoDescriptionRecipe: {
-    textAlign: 'left',
-    fontSize: 16,
-    marginTop: 30,
-    margin: 15,
-  },
-  infoRecipeName: {
-    fontSize: 28,
-    margin: 10,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'center',
+  descriptionText: {
+    textAlign: 'justify',
   },
 });
 
 export default function ProductDetailsScreen() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const slider1Ref = useRef(null);
   const products = useSelector(
     (state: RootState) => state.productsData.products,
+  );
+  const categories = useSelector(
+    (state: RootState) => state.productsData.categories,
   );
   const selectedProductId = useSelector(
     (state: RootState) => state.productsData.selectedProductId,
@@ -116,97 +81,76 @@ export default function ProductDetailsScreen() {
     selectedProductId,
     products,
   );
+  const productCategory: string | undefined =
+    ProductsHelper.getCategoryNameBasedOnId(product?.categoryId, categories);
+
+  const [activeSlide, setActiveSlide] = useState(0);
+  const productImagesSliderRef = useRef(null);
+  const { colors } = useTheme();
 
   if (!product) {
     return (
       <View>
-        <Text>Product not found!</Text>
+        <CustomText>Product not found!</CustomText>
       </View>
     );
   }
 
   const renderImage = ({ item }: { item: any }) => (
     <TouchableHighlight>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: item }} />
-      </View>
+      <Image style={styles.image} source={{ uri: item }} />
     </TouchableHighlight>
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[{ backgroundColor: colors.background }]}>
       <View style={styles.carouselContainer}>
-        <View style={styles.carousel}>
-          <Carousel
-            ref={slider1Ref}
-            data={product.photos}
-            renderItem={renderImage}
-            sliderWidth={viewportWidth}
-            itemWidth={viewportWidth}
-            inactiveSlideScale={1}
-            inactiveSlideOpacity={1}
-            firstItem={0}
-            loop={false}
-            autoplay={false}
-            autoplayDelay={500}
-            autoplayInterval={3000}
-            onSnapToItem={(index) => setActiveSlide(0)}
-          />
-          <Pagination
-            dotsLength={product.photos.length}
-            activeDotIndex={activeSlide}
-            containerStyle={styles.paginationContainer}
-            dotColor="rgba(255, 255, 255, 0.92)"
-            dotStyle={styles.paginationDot}
-            inactiveDotColor="white"
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-            carouselRef={slider1Ref.current as any}
-            tappableDots={!!slider1Ref.current}
-          />
-        </View>
+        <Carousel
+          layout="stack"
+          ref={productImagesSliderRef}
+          data={product.photos}
+          renderItem={renderImage}
+          sliderWidth={viewportWidth}
+          itemWidth={viewportWidth}
+          inactiveSlideScale={1}
+          inactiveSlideOpacity={1}
+          onSnapToItem={(index) => setActiveSlide(index)}
+        />
+        <Pagination
+          dotsLength={product.photos.length}
+          activeDotIndex={activeSlide}
+          containerStyle={styles.paginationContainer}
+          dotColor="rgba(255, 255, 255, 0.92)"
+          dotStyle={styles.paginationDot}
+          inactiveDotColor="white"
+          inactiveDotOpacity={0.6}
+          inactiveDotScale={0.8}
+          carouselRef={productImagesSliderRef.current as any}
+          tappableDots={!!productImagesSliderRef.current}
+        />
       </View>
-      <View style={styles.infoRecipeContainer}>
-        <Text style={styles.infoRecipeName}>{product.productTitle}</Text>
-        <View style={styles.infoContainer}>
-          <TouchableHighlight>
-            <Text style={styles.category}>{product.categoryId.toString()}</Text>
-          </TouchableHighlight>
-        </View>
-
-        <View style={styles.infoContainer}>
-          <Image
-            style={styles.infoPhoto}
-            source={require('@assets/icons/time.png')}
+      <View style={styles.productInfoContainer}>
+        <CustomText isBold>{product.productTitle}</CustomText>
+        <CustomText style={{ color: colors.secondaryText }}>
+          {productCategory}
+        </CustomText>
+        <View style={styles.durationContainer}>
+          <FontAwesome
+            name="clock-o"
+            size={hp('2.5%')}
+            color={colors.primary}
           />
-          <Text style={styles.infoRecipe}>2 minutes </Text>
+          <CustomText isBold>
+            {Strings.WHITESPACE_CHARACTER + product.categoryId.toString()}
+          </CustomText>
         </View>
-
-        <View style={styles.infoContainer}>
-          <Link
-            href={{
-              pathname: Screens.productCreatePath,
-              params: { categoryId: product.categoryId },
-            }}
-            asChild
-          >
-            <Button
-              title="Create"
-              // onPress={() => console.log('Create product')}
-            />
-          </Link>
-          {/* <ViewIngredientsButton
-            onPress={() => {
-              let ingredients = video.videoTitle;
-              let title = "Ingredients for ";
-              //navigation.navigate("IngredientsDetails", { ingredients, title });
-            }}
-          /> */}
+        <View style={styles.buttonContainer}>
+          <CustomButton title="Create" />
         </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.infoDescriptionRecipe}>
+        <View>
+          <CustomText style={styles.descriptionText}>
             {product.productDescription}
-          </Text>
+          </CustomText>
         </View>
       </View>
     </ScrollView>

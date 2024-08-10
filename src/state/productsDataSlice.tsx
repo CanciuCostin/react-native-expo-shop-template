@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { Product, Category, ProductTag } from '@models/types';
+import { Product, Category, ProductTag } from '@models/Types';
 
 interface ProductsDataState {
   products: Product[];

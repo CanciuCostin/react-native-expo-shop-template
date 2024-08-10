@@ -1,4 +1,4 @@
-import { Category, Product } from '@models/types';
+import { Category, Product } from '@models/Types';
 
 export default class ProductsHelper {
   static getProductsBasedOnCategoryAndTags = (
@@ -34,9 +34,10 @@ export default class ProductsHelper {
   };
 
   static getCategoryNameBasedOnId = (
-    categoryId: number,
+    categoryId: number | undefined,
     categories: Category[],
   ): string => {
+    if(categoryId === undefined) return '';
     return (
       categories.find((category) => category.categoryId === categoryId)
         ?.categoryName || ''
