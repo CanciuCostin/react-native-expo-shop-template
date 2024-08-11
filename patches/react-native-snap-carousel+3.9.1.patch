@@ -122,3 +122,4 @@ index 8bc774a..b5d51c2 100644
          dimensions: PropTypes.shape({
              width: PropTypes.number,
              height: PropTypes.number
+
