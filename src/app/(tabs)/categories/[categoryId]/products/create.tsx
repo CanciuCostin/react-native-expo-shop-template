@@ -1,6 +1,6 @@
 import { View, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import ImagePicker from '@components/input/ImagePicker';
-import DropDownModal from '@components/input/DropDownModal';
+import DropDown from '@components/input/DropDown';
 import DateTimePicker from '@components/input/DateTimePicker';
 import CustomTextInput from '@components/input/CustomTextInput';
 import { RootState } from '@state/store';
@@ -109,12 +109,12 @@ export default function ProductCreateScreen() {
             <PaddingContainer />
 
             <View style={styles.dropdownContainer}>
-              <DropDownModal
+              <DropDown
                 dropdownItems={pokemons}
                 label="Select Dropdown:"
                 isRequired
                 icon="arrow-down"
-              ></DropDownModal>
+              ></DropDown>
             </View>
             <PaddingContainer />
 
@@ -148,7 +148,10 @@ export default function ProductCreateScreen() {
             </View>
             <PaddingContainer />
             <View style={styles.switchContainer}>
-              <CustomSwitch text={<TermsAndConditions />}></CustomSwitch>
+              <CustomSwitch
+                text={<TermsAndConditions />}
+                icon="info-circle"
+              ></CustomSwitch>
             </View>
             <PaddingContainer />
           </View>

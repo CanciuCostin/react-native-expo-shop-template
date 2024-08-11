@@ -11,6 +11,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   dropdownContainer: {
@@ -33,10 +34,10 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
+    maxHeight: hp('40%'),
     width: '60%',
-    marginVertical: '70%',
+    marginTop: '60%',
     alignSelf: 'center',
-    backgroundColor: 'transparent',
   },
 
   modalWindow: {
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     paddingHorizontal: '2%',
-    paddingTop: '5%',
   },
 
   closeModalButton: {
@@ -64,10 +64,12 @@ const styles = StyleSheet.create({
   },
   modalLabel: {
     flex: 1,
+    paddingTop: '5%',
   },
   modalListItem: {
     paddingVertical: '5%',
     borderTopWidth: 1,
+    height: hp('6%'),
     width: '100%',
   },
   dropdownItemText: {
@@ -81,8 +83,12 @@ export default function DropDown(props: {
   isRequired?: boolean;
   icon?: string;
   backgroundColor?: string;
+  onValueChange?: (value: string) => void;
+  defaultItemIndex?: number;
 }) {
-  const [dropdownItem, setDropdownItem] = useState(props.dropdownItems[0]);
+  const [dropdownItem, setDropdownItem] = useState(
+    props.dropdownItems[props.defaultItemIndex || 0],
+  );
   const [modalVisible, setModalVisible] = useState(false);
 
   const { colors } = useTheme();
@@ -119,7 +125,14 @@ export default function DropDown(props: {
             <View style={styles.modalLabel}>
               <CustomText
                 isBold
-                style={[styles.dropdownLabel, { color: colors.text }]}
+                style={[
+                  styles.dropdownLabel,
+                  {
+                    color: colors.text,
+                    textAlign: 'center',
+                    textAlignVertical: 'center',
+                  },
+                ]}
               >
                 {props.label}
               </CustomText>
@@ -142,6 +155,9 @@ export default function DropDown(props: {
                     ]}
                     onPress={() => {
                       setDropdownItem(item);
+                      if (props.onValueChange) {
+                        props.onValueChange(item);
+                      }
                       setModalVisible(false);
                     }}
                   >

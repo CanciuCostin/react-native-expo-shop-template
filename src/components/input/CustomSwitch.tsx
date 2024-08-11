@@ -7,14 +7,17 @@ const styles = StyleSheet.create({
   switchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: '2%',
     paddingHorizontal: '5%',
   },
+  switchIcon: {
+    flex: 1,
+    alignSelf: 'center',
+  },
   switchTextContainer: {
-    flex: 4,
+    flex: 13,
   },
   switchToggleContainer: {
-    flex: 1,
+    flex: 3,
   },
 });
 
@@ -22,21 +25,37 @@ export default function CustomSwitch(props: {
   isEnabled?: boolean;
   icon?: string;
   text?: any;
+  backgroundColor?: string;
+  applySettingsStyling?: boolean;
 }) {
   const [isEnabled, setIsEnabled] = useState(props.isEnabled || false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const { colors } = useTheme();
 
   return (
-    <View style={styles.switchContainer}>
-      {props.icon && (
-        <FontAwesome
-          name={(props.icon as any) || 'default-icon'}
-          size={24}
-          color={colors.primary}
-        />
-      )}
-      <View style={styles.switchTextContainer}>{props.text}</View>
+    <View
+      style={[
+        styles.switchContainer,
+        { backgroundColor: props.backgroundColor || colors.card },
+      ]}
+    >
+      <View style={[styles.switchIcon]}>
+        {props.icon && (
+          <FontAwesome
+            name={(props.icon as any) || 'default-icon'}
+            size={16}
+            color={colors.primary}
+          />
+        )}
+      </View>
+      <View
+        style={[
+          styles.switchTextContainer,
+          props.applySettingsStyling ? { flex: 5 } : {},
+        ]}
+      >
+        {props.text}
+      </View>
       <View style={styles.switchToggleContainer}>
         <Switch
           trackColor={{ false: colors.secondaryText, true: colors.primary }}
