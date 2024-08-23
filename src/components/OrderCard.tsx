@@ -4,6 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import CustomText from './CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesome } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   orderContainer: {
@@ -74,6 +75,7 @@ export default function OrderCard(props: {
   personalizationDataItem: PersonalizationData | undefined;
 }) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <View
@@ -116,7 +118,7 @@ export default function OrderCard(props: {
             {props.orderProduct.productTitle}
           </CustomText>
           <CustomText isSecondary style={[styles.orderIdText]}>
-            Order Id: {props.order.orderId.slice(0, 8)}
+            {t('orderId')} {props.order.orderId.slice(0, 8)}
           </CustomText>
         </View>
         <View style={styles.orderTextStatusContainer}>

@@ -10,6 +10,7 @@ import { useTheme } from '@react-navigation/native';
 import { router } from 'expo-router';
 import Screens from '@constants/Screens';
 import { setSelectedPersonalizationDataId } from '@state/productsDataSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +34,7 @@ export default function PersonalizationDataList() {
 
   const { colors } = useTheme();
   const dispatch = useDispatch<AppDispatch>();
+  const { t } = useTranslation();
 
   const renderOrder = ({ item }: { item: PersonalizationData }) => (
     <View style={styles.listItem}>
@@ -49,19 +51,19 @@ export default function PersonalizationDataList() {
   return (
     <View style={styles.container}>
       <CustomText style={[styles.label, { color: colors.secondaryText }]}>
-        PERSONALIZE THE PRODUCT
+        {t('personalizeTheProduct')}
       </CustomText>
       <PersonalizationDataCard
         personalizationDataItem={{
           id: '0',
-          message: 'New Personalization',
+          message: t('newPersonalization'),
           image: undefined,
           date: undefined,
         }}
         onPress={() => router.replace(Screens.productCreatePath)}
       />
       <CustomText style={[{ color: colors.secondaryText }, styles.label]}>
-        SELECT FROM PREVIOUS PERSONALIZATIONS
+        {t('selectFromPreviousPersonalizations')}
       </CustomText>
       <FlatList
         data={personalizationData}

@@ -4,6 +4,7 @@ import { Product } from '@models/Types';
 import { useTheme } from '@react-navigation/native';
 import CustomText from './CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   productContainer: {
@@ -56,6 +57,7 @@ export default function ProductCard(props: {
   onCreatePress: () => void;
 }) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -78,7 +80,10 @@ export default function ProductCard(props: {
           </CustomText>
         </View>
         <View style={styles.productCreateContainer}>
-          <CustomButton title="Create" onPress={props.onCreatePress} />
+          <CustomButton
+            title={t('orderButton')}
+            onPress={props.onCreatePress}
+          />
         </View>
       </View>
     </TouchableOpacity>

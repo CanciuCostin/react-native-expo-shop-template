@@ -21,12 +21,13 @@ export default function LanguageSwitcher() {
   const [language, setLanguage] = useState(getLanguageFromCode(i18n.language));
 
   const changeLanguage = (lng: string) => {
-    setLanguage(SUPPORTED_LANGUAGES.find((lang) => lang.name === lng));
-    if (!language) {
+    const newLanguage = SUPPORTED_LANGUAGES.find((lang) => lang.name === lng);
+    if (!newLanguage) {
       return;
     }
-    i18n.changeLanguage(language.code);
-    AsyncStorage.setItem('user-language', language.code);
+    i18n.changeLanguage(newLanguage.code);
+    AsyncStorage.setItem('user-language', newLanguage.code);
+    setLanguage(newLanguage);
   };
 
   return (
@@ -37,7 +38,7 @@ export default function LanguageSwitcher() {
         )}
         countryFlag={language?.flagIsoCode}
         countryFlags={SUPPORTED_LANGUAGES.map((lng) => lng.flagIsoCode)}
-        label="Language"
+        label={i18n.t('language')}
         dropdownItems={SUPPORTED_LANGUAGES.map((lng) => lng.name)}
         onValueChange={changeLanguage}
       />

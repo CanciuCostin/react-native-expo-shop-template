@@ -6,6 +6,7 @@ import { RootState } from '@state/store';
 import { useSelector } from 'react-redux';
 import CustomText from '@components/CustomText';
 import ProductsHelper from '@helpers/ProductsHelper';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Orders() {
+  const { t } = useTranslation();
   const orders: Order[] = useSelector(
     (state: RootState) => state.productsData.orders,
   );
@@ -53,7 +55,7 @@ export default function Orders() {
     <View style={styles.container}>
       {orders.length === 0 && (
         <View style={styles.noOrdersView}>
-          <CustomText isBold>No Orders Yet</CustomText>
+          <CustomText isBold>{t('noOrdersMessage')}</CustomText>
         </View>
       )}
       <FlatList

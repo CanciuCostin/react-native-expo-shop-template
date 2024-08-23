@@ -23,6 +23,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Strings from '@constants/Strings';
 import { router } from 'expo-router';
 import Screens from '@constants/Screens';
+import { useTranslation } from 'react-i18next';
 
 const { width: viewportWidth } = Dimensions.get('window');
 
@@ -92,11 +93,12 @@ export default function ProductDetailsScreen() {
   const [activeSlide, setActiveSlide] = useState(0);
   const productImagesSliderRef = useRef(null);
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   if (!product) {
     return (
       <View>
-        <CustomText>Product not found!</CustomText>
+        <CustomText>{t('productNotFound')}</CustomText>
       </View>
     );
   }
@@ -158,7 +160,7 @@ export default function ProductDetailsScreen() {
                   : Screens.personalizationDataPath,
               )
             }
-            title="Create"
+            title={t('orderButton')}
           />
         </View>
         <View>

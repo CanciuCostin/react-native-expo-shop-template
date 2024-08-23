@@ -17,7 +17,6 @@ import { AppDispatch } from '@state/store';
 import { useFonts } from 'expo-font';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
-// import { loadOrders, loadPersonalizationData } from '@service/OrderService';
 
 const styles = StyleSheet.create({
   container: {

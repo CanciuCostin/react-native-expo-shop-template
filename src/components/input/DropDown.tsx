@@ -88,7 +88,6 @@ export default function DropDown(props: {
   defaultItemIndex?: number;
 }) {
   const [modalVisible, setModalVisible] = useState(false);
-
   const { colors } = useTheme();
 
   return (

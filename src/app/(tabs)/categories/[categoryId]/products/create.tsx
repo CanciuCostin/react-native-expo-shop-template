@@ -30,18 +30,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import * as Crypto from 'expo-crypto';
 import { router } from 'expo-router';
 import Screens from '@constants/Screens';
-
-const FormSchema = z.object({
-  message: z
-    .string()
-    .max(20)
-    .min(1, { message: 'Message must not be empty' })
-    .min(2, { message: 'Message must be at least 2 characters long' }),
-  image: z.string(),
-  dropdown: z.map(z.string(), z.string()),
-  dateTime: z.date(),
-  switch: z.literal(true),
-});
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -97,6 +86,7 @@ function initProductOptions(
 
 export default function ProductCreateScreen() {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
   const [errors, setErrors] = useState<
     z.ZodFormattedError<
@@ -147,6 +137,17 @@ export default function ProductCreateScreen() {
     personalizationDataItem?.message || '',
   );
   const [termsApproved, setTermsApproved] = useState<boolean>(false);
+
+  const FormSchema = z.object({
+    message: z
+      .string()
+      .max(20, { message: t('messageFieldTooLongError') })
+      .min(1, { message: t('messageFieldEmptyError') }),
+    image: z.string(),
+    dropdown: z.map(z.string(), z.string()),
+    dateTime: z.date(),
+    switch: z.literal(true, { message: t('termsNotApprovedError') }),
+  });
 
   function validateInput(formData: Record<string, unknown>): boolean {
     const result = FormSchema.safeParse(formData);
@@ -252,8 +253,8 @@ export default function ProductCreateScreen() {
           <View style={styles.imagePickerContainer}>
             <ImagePicker
               image={image}
-              label="Add an image to customize the product:"
-              notice="We will not share your image."
+              label={t('chooseImage')}
+              notice={t('imageNotice')}
               onImageChange={setImage}
               icon="camera"
             ></ImagePicker>
@@ -266,7 +267,7 @@ export default function ProductCreateScreen() {
                 <View style={styles.dropdownContainer}>
                   <DropDown
                     dropdownItems={optionValues}
-                    label={`Select ${option}:`}
+                    label={`$t('select') ${option}:`}
                     isRequired
                     icon="arrow-down"
                     selectedItem={productOptions.get(option) || ''}
@@ -284,7 +285,7 @@ export default function ProductCreateScreen() {
           )}
           <View style={styles.dateTimePickerContainer}>
             <DateTimePicker
-              label="Choose Date:"
+              label={t('chooseDate')}
               icon="calendar"
               date={date}
               onDateChange={setDate}
@@ -295,8 +296,8 @@ export default function ProductCreateScreen() {
           <View style={styles.textInputContainer}>
             <CustomTextInput
               isRequired
-              label="Your Message:"
-              placeholder="Enter your message here"
+              label={t('enterMessage')}
+              placeholder={t('messagePlaceholder')}
               value={message}
               onChangeText={setMessage}
               icon="user"
@@ -318,7 +319,7 @@ export default function ProductCreateScreen() {
       </ScrollView>
       <View style={styles.buttonContainer}>
         <CustomButton
-          title="Create Product"
+          title={t('orderButton')}
           onPressAsync={onButtonPress}
         ></CustomButton>
       </View>

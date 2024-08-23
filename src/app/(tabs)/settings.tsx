@@ -5,6 +5,8 @@ import SettingsDropDown from '@components/input/SettingsDropDown';
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import SettingsButton from '@components/input/SettingsButton';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,59 +35,77 @@ const styles = StyleSheet.create({
 
 export default function SettingsScreen() {
   const { colors } = useTheme();
+  const { t } = useTranslation();
+  const [pushNotificationsEnabled, setPushNotificationsEnabled] =
+    useState<boolean>(true);
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.preferencesContainer}>
         <CustomText isBold isSecondary style={styles.settingsLabel}>
-          PREFERENCES
+          {t('preferencesHeader')}
         </CustomText>
         <LanguageSwitcher />
         <SettingsDropDown
-          label="Interface Aspect"
+          label={t('interfaceTheme')}
           dropdownItems={[]}
           icon="moon-o"
         />
         <CustomSwitch
+          isEnabled={pushNotificationsEnabled}
+          onToggle={() => setPushNotificationsEnabled}
           applySettingsStyling={true}
           icon="bell-o"
-          text={<CustomText isBold>Push Notifications</CustomText>}
+          text={<CustomText isBold>{t('pushNotifications')}</CustomText>}
         />
       </View>
       <View style={styles.notificationsContainer}>
         <CustomText isBold isSecondary style={styles.settingsLabel}>
-          DATA
+          {t('dataHeader')}
         </CustomText>
 
         <SettingsButton
           icon="address-card-o"
-          label="Addresses"
+          label={t('addresses')}
           onPress={() => {}}
         />
-        <SettingsButton icon="bank" label="Invoices" onPress={() => {}} />
+        <SettingsButton icon="bank" label={t('invoices')} onPress={() => {}} />
       </View>
       <View style={styles.applicationContainer}>
         <CustomText isBold isSecondary style={styles.settingsLabel}>
-          APPLICATION
+          {t('applicationHeader')}
         </CustomText>
-        <SettingsButton icon="star-o" label="Rate The App" onPress={() => {}} />
-        <SettingsButton icon="money" label="Reedem Code" onPress={() => {}} />
         <SettingsButton
-          icon="mail-forward"
-          label="Contact Us"
+          icon="star-o"
+          label={t('rateTheApp')}
           onPress={() => {}}
         />
-        <SettingsButton icon="lock" label="Privacy Policy" onPress={() => {}} />
+        <SettingsButton
+          icon="money"
+          label={t('redeemVoucher')}
+          onPress={() => {}}
+        />
+        <SettingsButton
+          icon="mail-forward"
+          label={t('contactUs')}
+          onPress={() => {}}
+        />
+        <SettingsButton
+          icon="lock"
+          label={t('privacyPolicy')}
+          onPress={() => {}}
+        />
         <SettingsButton
           icon="book"
-          label="Terms and Conditions"
+          label={t('termsAndConditions')}
           onPress={() => {}}
         />
         <SettingsButton
           icon="info-circle"
-          label="About Us"
+          label={t('aboutUs')}
           onPress={() => {}}
         />
-        <CustomText style={styles.copyrights}>Expo Template © 2024</CustomText>
+        <CustomText style={styles.copyrights}>{t('copyrights')}</CustomText>
       </View>
     </View>
   );

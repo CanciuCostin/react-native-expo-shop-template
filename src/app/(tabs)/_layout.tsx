@@ -3,6 +3,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -14,6 +15,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Tabs
@@ -37,14 +39,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="categories"
         options={{
-          title: 'Categories',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: t('categoriesHeader'),
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Link href="/videoPlayerModal" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name="question-circle"
                     size={25}
                     color={colors.primary}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -58,44 +60,17 @@ export default function TabLayout() {
       <Tabs.Screen
         name="orders"
         options={{
-          title: 'My Orders',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/#" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color="green" //{Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          title: t('ordersHeader'),
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="shopping-cart" color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Settings',
+          title: t('settingsHeader'),
           tabBarIcon: ({ color }) => <TabBarIcon name="wrench" color={color} />,
-          headerRight: () => (
-            // <Link href="/modal" asChild>
-            <Link href="/#" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color="green" //{Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
     </Tabs>

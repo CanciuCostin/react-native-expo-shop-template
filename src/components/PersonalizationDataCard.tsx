@@ -1,9 +1,10 @@
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Order, PersonalizationData } from '@models/Types';
+import { PersonalizationData } from '@models/Types';
 import { useTheme } from '@react-navigation/native';
 import CustomText from './CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesome } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +54,7 @@ export default function PersonalizationDataCard(props: {
   onPress?: () => void;
 }) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -63,7 +65,7 @@ export default function PersonalizationDataCard(props: {
         { backgroundColor: colors.card, borderColor: colors.border },
       ]}
     >
-      {props.personalizationDataItem.message === 'New Personalization' ? (
+      {props.personalizationDataItem.message === t('newPersonalization') ? (
         <FontAwesome
           style={styles.newPersonalizationIcon}
           name="plus"
