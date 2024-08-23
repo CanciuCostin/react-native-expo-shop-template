@@ -39,9 +39,14 @@ export default function CustomButton(props: {
   const handleOnPress = async () => {
     setLoading(true);
     if (props.onPressAsync) {
-      props.onPressAsync().then(() => setLoading(false));
+      props
+        .onPressAsync()
+        .then(() => setLoading(false))
+        .catch(() => setLoading(false));
     } else if (props.onPress) {
       props.onPress();
+      setLoading(false);
+    } else {
       setLoading(false);
     }
   };

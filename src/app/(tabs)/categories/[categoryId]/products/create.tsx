@@ -1,29 +1,54 @@
-import { View, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, ScrollView } from 'react-native';
 import ImagePicker from '@components/input/ImagePicker';
 import DropDown from '@components/input/DropDown';
 import DateTimePicker from '@components/input/DateTimePicker';
 import CustomTextInput from '@components/input/CustomTextInput';
-import { RootState } from '@state/store';
-import { useSelector } from 'react-redux';
+import { AppDispatch, persistor, RootState } from '@state/store';
+import { useDispatch, useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
-import { Product } from '@models/Types';
+import {
+  Order,
+  OrderStatus,
+  PersonalizationData,
+  Product,
+} from '@models/Types';
 import CustomButton from '@components/input/CustomButton';
 import CustomSwitch from '@components/input/CustomSwitch';
-import { useState } from 'react';
+import { useRef, useState, Fragment } from 'react';
 import PaddingContainer from '@components/PaddingContainer';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import TermsAndConditions from '@components/TermsAndConditions';
+import {
+  createOrderAsync,
+  createOrUpdatePersonalizationDataAsync,
+  setSelectedPersonalizationDataId,
+} from '@state/productsDataSlice';
+import { z } from 'zod';
+import InputValidationError from '@components/input/InputValidationError';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import * as Crypto from 'expo-crypto';
+import { router } from 'expo-router';
+import Screens from '@constants/Screens';
+
+const FormSchema = z.object({
+  message: z
+    .string()
+    .max(20)
+    .min(1, { message: 'Message must not be empty' })
+    .min(2, { message: 'Message must be at least 2 characters long' }),
+  image: z.string(),
+  dropdown: z.map(z.string(), z.string()),
+  dateTime: z.date(),
+  switch: z.literal(true),
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollContainer: {
-    flex: 9,
-  },
   productContainer: {
-    flex: 4,
+    height: hp('10%'),
     flexDirection: 'row',
   },
   productImage: {
@@ -38,28 +63,55 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   imagePickerContainer: {
-    flex: 10,
+    height: hp('30%'),
   },
   textInputContainer: {
-    flex: 4,
+    height: hp('10%'),
   },
   dropdownContainer: {
-    flex: 4,
+    height: hp('10%'),
   },
   dateTimePickerContainer: {
-    flex: 4,
+    height: hp('10%'),
   },
   buttonContainer: {
-    flex: 1,
+    height: hp('8%'),
   },
   switchContainer: {
-    flex: 3,
+    height: hp('6%'),
   },
 });
 
-const pokemons = ['Pikachu', 'Charmander', 'Squirtle'];
+function initProductOptions(
+  productOptions: Map<string, string[]> | undefined,
+): Map<string, string> {
+  if (!productOptions) {
+    return new Map<string, string>();
+  }
+  let productOptionsMap = new Map<string, string>();
+  productOptions.forEach((value, key) => {
+    productOptionsMap.set(key, value[0]);
+  });
+  return productOptionsMap;
+}
 
 export default function ProductCreateScreen() {
+  const { colors } = useTheme();
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [errors, setErrors] = useState<
+    z.ZodFormattedError<
+      {
+        message: string;
+        image: string;
+        dropdown: Map<string, string>;
+        dateTime: Date;
+        switch: true;
+      },
+      string
+    >
+  >({} as any);
+  // Redux state
+  const dispatch = useDispatch<AppDispatch>();
   const products = useSelector(
     (state: RootState) => state.productsData.products,
   );
@@ -70,104 +122,204 @@ export default function ProductCreateScreen() {
     selectedProductId,
     products,
   );
-  const [image, setImage] = useState<string>('');
+  const personalizationData = useSelector(
+    (state: RootState) => state.productsData.personalizationData,
+  );
+  const selectedPersonalizationDataId = useSelector(
+    (state: RootState) => state.productsData.selectedPersonalizationDataId,
+  );
+  const personalizationDataItem =
+    ProductsHelper.getPersonalizationDataBasedOnId(
+      selectedPersonalizationDataId || '',
+      personalizationData,
+    );
+  // Component state
+  const [image, setImage] = useState<string>(
+    personalizationDataItem?.image || '',
+  );
+  const [productOptions, setProductOptions] = useState<Map<string, string>>(
+    initProductOptions(product?.productOptions),
+  );
+  const [date, setDate] = useState(
+    new Date(personalizationDataItem?.date || 0),
+  );
+  const [message, setMessage] = useState<string>(
+    personalizationDataItem?.message || '',
+  );
+  const [termsApproved, setTermsApproved] = useState<boolean>(false);
 
-  let screenHeight = Dimensions.get('window').height;
+  function validateInput(formData: Record<string, unknown>): boolean {
+    const result = FormSchema.safeParse(formData);
+    if (result.success) {
+      setErrors({} as any);
+      return true;
+    }
+    setErrors(result.error.format());
+    return false;
+  }
 
-  const { colors } = useTheme();
+  function getScrollOffset(): number {
+    if (errors.image) {
+      return hp('10%');
+    }
+    if (errors.dropdown) {
+      return hp('20%');
+    }
+    if (errors.dateTime) {
+      return hp('30%');
+    }
+    if (errors.message) {
+      return hp('40%');
+    }
+    if (errors.switch) {
+      return hp('50%');
+    }
+    return 0;
+  }
+
+  function onButtonPress(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      console.log('Create product');
+      // persistor.purge().then(() => {
+      //   resolve();
+      // });
+      const isFormValid = validateInput({
+        image: image,
+        dropdown: productOptions,
+        dateTime: date,
+        message: message,
+        switch: termsApproved,
+      });
+      if (isFormValid) {
+        const personalizationDataObject: PersonalizationData = {
+          id: personalizationDataItem?.id || Crypto.randomUUID(),
+          date: date,
+          message: message,
+          image: image,
+        };
+        // TODO: Request to create order. Parse response
+        const order: Order = {
+          orderId: Crypto.randomUUID(),
+          orderDate: new Date(Date.now()),
+          orderStatus: OrderStatus.Pending,
+          productId: selectedProductId,
+          personalizationItemId: personalizationDataObject.id,
+          extraInfo: productOptions,
+        };
+        dispatch(
+          createOrUpdatePersonalizationDataAsync(personalizationDataObject),
+        ).then(() =>
+          dispatch(createOrderAsync(order))
+            .then(() => {
+              setSelectedPersonalizationDataId(undefined);
+              router.dismissAll();
+              router.replace(Screens.ordersListPath);
+            })
+            .then(() => resolve()),
+        );
+      } else {
+        console.log(errors);
+        scrollViewRef.current?.scrollTo({
+          x: getScrollOffset(),
+          animated: true,
+        });
+        reject();
+      }
+    });
+  }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.scrollContainer, { backgroundColor: colors.card }]}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={{ height: screenHeight }}>
-            <PaddingContainer />
-            <View style={styles.productContainer}>
-              <Image
-                source={{ uri: product?.photos[0] }}
-                style={[styles.productImage, { borderColor: colors.border }]}
-              />
-              <CustomText
-                isBold
-                style={[styles.productText, { color: colors.text }]}
-              >
-                {product?.productTitle}
-              </CustomText>
-            </View>
-            <PaddingContainer />
-
-            <View style={styles.imagePickerContainer}>
-              <ImagePicker
-                image={image}
-                label="Add an image of the child:"
-                notice="We will not share your image."
-                onImageChange={setImage}
-                icon="camera"
-                isRequired
-              ></ImagePicker>
-            </View>
-            <PaddingContainer />
-
-            <View style={styles.dropdownContainer}>
-              <DropDown
-                dropdownItems={pokemons}
-                label="Select Dropdown:"
-                isRequired
-                icon="arrow-down"
-              ></DropDown>
-            </View>
-            <PaddingContainer />
-
-            <View style={styles.dateTimePickerContainer}>
-              <DateTimePicker
-                label="Choose Date:"
-                isRequired
-                icon="calendar"
-              ></DateTimePicker>
-            </View>
-            <PaddingContainer />
-
-            <View style={styles.textInputContainer}>
-              <CustomTextInput
-                label="First Name:"
-                placeholder="First Name"
-                onChangeText={(text) => console.log(text)}
-                isRequired
-                icon="user"
-              />
-            </View>
-            <PaddingContainer />
-
-            <View style={styles.textInputContainer}>
-              <CustomTextInput
-                label="Last Name:"
-                placeholder="Last Name"
-                onChangeText={(text) => console.log(text)}
-                icon="user"
-              />
-            </View>
-            <PaddingContainer />
-            <View style={styles.switchContainer}>
-              <CustomSwitch
-                text={<TermsAndConditions />}
-                icon="info-circle"
-              ></CustomSwitch>
-            </View>
-            <PaddingContainer />
+    <View style={[styles.container]}>
+      <ScrollView
+        contentContainerStyle={{ backgroundColor: colors.card }}
+        ref={scrollViewRef}
+      >
+        <View>
+          <PaddingContainer />
+          <View style={styles.productContainer}>
+            <Image
+              source={{ uri: product?.photos[0] }}
+              style={[styles.productImage, { borderColor: colors.border }]}
+            />
+            <CustomText
+              isBold
+              style={[styles.productText, { color: colors.text }]}
+            >
+              {product?.productTitle}
+            </CustomText>
           </View>
-        </ScrollView>
-      </View>
+          <PaddingContainer />
+          <View style={styles.imagePickerContainer}>
+            <ImagePicker
+              image={image}
+              label="Add an image to customize the product:"
+              notice="We will not share your image."
+              onImageChange={setImage}
+              icon="camera"
+            ></ImagePicker>
+          </View>
+          <InputValidationError errors={errors.image?._errors || []} />
+          <PaddingContainer />
+          {Array.from(product?.productOptions || []).map(
+            ([option, optionValues]) => (
+              <Fragment key={option}>
+                <View style={styles.dropdownContainer}>
+                  <DropDown
+                    dropdownItems={optionValues}
+                    label={`Select ${option}:`}
+                    isRequired
+                    icon="arrow-down"
+                    selectedItem={productOptions.get(option) || ''}
+                    onValueChange={(value) =>
+                      setProductOptions(
+                        new Map(productOptions.set(option, value)),
+                      )
+                    }
+                  ></DropDown>
+                </View>
+                <InputValidationError errors={errors.dropdown?._errors || []} />
+                <PaddingContainer />
+              </Fragment>
+            ),
+          )}
+          <View style={styles.dateTimePickerContainer}>
+            <DateTimePicker
+              label="Choose Date:"
+              icon="calendar"
+              date={date}
+              onDateChange={setDate}
+            ></DateTimePicker>
+          </View>
+          <InputValidationError errors={errors.dateTime?._errors || []} />
+          <PaddingContainer />
+          <View style={styles.textInputContainer}>
+            <CustomTextInput
+              isRequired
+              label="Your Message:"
+              placeholder="Enter your message here"
+              value={message}
+              onChangeText={setMessage}
+              icon="user"
+            />
+          </View>
+          <InputValidationError errors={errors.message?._errors || []} />
+          <PaddingContainer />
+          <View style={styles.switchContainer}>
+            <CustomSwitch
+              isEnabled={termsApproved}
+              onToggle={() => setTermsApproved(!termsApproved)}
+              text={<TermsAndConditions />}
+              icon="info-circle"
+            ></CustomSwitch>
+          </View>
+          <InputValidationError errors={errors.switch?._errors || []} />
+          <PaddingContainer />
+        </View>
+      </ScrollView>
       <View style={styles.buttonContainer}>
         <CustomButton
           title="Create Product"
-          onPress={(): Promise<void> =>
-            new Promise((resolve, reject) =>
-              setTimeout(() => {
-                console.log('Create product');
-                resolve();
-              }, 3000),
-            )
-          }
+          onPressAsync={onButtonPress}
         ></CustomButton>
       </View>
     </View>

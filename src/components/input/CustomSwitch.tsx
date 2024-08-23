@@ -22,14 +22,13 @@ const styles = StyleSheet.create({
 });
 
 export default function CustomSwitch(props: {
-  isEnabled?: boolean;
+  isEnabled: boolean;
+  onToggle: () => void;
   icon?: string;
   text?: any;
   backgroundColor?: string;
   applySettingsStyling?: boolean;
 }) {
-  const [isEnabled, setIsEnabled] = useState(props.isEnabled || false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const { colors } = useTheme();
 
   return (
@@ -59,10 +58,10 @@ export default function CustomSwitch(props: {
       <View style={styles.switchToggleContainer}>
         <Switch
           trackColor={{ false: colors.secondaryText, true: colors.primary }}
-          thumbColor={isEnabled ? colors.buttonText : colors.border}
+          thumbColor={props.isEnabled ? colors.buttonText : colors.border}
           ios_backgroundColor={colors.background}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          onValueChange={props.onToggle}
+          value={props.isEnabled}
         />
       </View>
     </View>

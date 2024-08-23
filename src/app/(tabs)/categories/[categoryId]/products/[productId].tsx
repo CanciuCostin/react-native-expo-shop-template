@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { StyleSheet } from 'react-native';
-import { Product } from '@models/Types';
+import { PersonalizationData, Product } from '@models/Types';
 import { RootState } from '@state/store';
 import { useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
@@ -21,6 +21,8 @@ import {
 } from 'react-native-responsive-screen';
 import { FontAwesome } from '@expo/vector-icons';
 import Strings from '@constants/Strings';
+import { router } from 'expo-router';
+import Screens from '@constants/Screens';
 
 const { width: viewportWidth } = Dimensions.get('window');
 
@@ -83,6 +85,9 @@ export default function ProductDetailsScreen() {
   );
   const productCategory: string | undefined =
     ProductsHelper.getCategoryNameBasedOnId(product?.categoryId, categories);
+  const personalizationData: PersonalizationData[] = useSelector(
+    (state: RootState) => state.productsData.personalizationData,
+  );
 
   const [activeSlide, setActiveSlide] = useState(0);
   const productImagesSliderRef = useRef(null);
@@ -145,7 +150,16 @@ export default function ProductDetailsScreen() {
           </CustomText>
         </View>
         <View style={styles.buttonContainer}>
-          <CustomButton title="Create" />
+          <CustomButton
+            onPress={() =>
+              router.navigate(
+                personalizationData.length
+                  ? Screens.personalizationDataPath
+                  : Screens.personalizationDataPath,
+              )
+            }
+            title="Create"
+          />
         </View>
         <View>
           <CustomText style={styles.descriptionText}>

@@ -83,12 +83,10 @@ export default function DropDown(props: {
   isRequired?: boolean;
   icon?: string;
   backgroundColor?: string;
-  onValueChange?: (value: string) => void;
+  onValueChange: (value: string) => void;
+  selectedItem: string;
   defaultItemIndex?: number;
 }) {
-  const [dropdownItem, setDropdownItem] = useState(
-    props.dropdownItems[props.defaultItemIndex || 0],
-  );
   const [modalVisible, setModalVisible] = useState(false);
 
   const { colors } = useTheme();
@@ -154,7 +152,7 @@ export default function DropDown(props: {
                       { borderTopColor: colors.background },
                     ]}
                     onPress={() => {
-                      setDropdownItem(item);
+                      props.onValueChange(item);
                       if (props.onValueChange) {
                         props.onValueChange(item);
                       }
@@ -190,7 +188,7 @@ export default function DropDown(props: {
         onPress={() => setModalVisible(true)}
       >
         <CustomText isSecondary>
-          {dropdownItem + Strings.WHITESPACE_CHARACTER}
+          {props.selectedItem + Strings.WHITESPACE_CHARACTER}
           <FontAwesome
             name="angle-down"
             size={16}

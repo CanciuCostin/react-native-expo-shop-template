@@ -72,7 +72,7 @@ export default function ProductCard(props: {
       />
       <View style={styles.productDetailsContainer}>
         <View style={styles.productTextDetailsContainer}>
-          <CustomText>Filmulet</CustomText>
+          <CustomText>{props.product.productPrice}</CustomText>
           <CustomText isBold style={styles.categoriesName}>
             {props.product.productTitle}
           </CustomText>

@@ -1,9 +1,9 @@
 import { FlatList, View, StyleSheet } from 'react-native';
-import { Product } from '@models/Types';
+import { PersonalizationData, Product } from '@models/Types';
 import React from 'react';
 import { router } from 'expo-router';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@state/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@state/store';
 import { setSelectedProductId } from '@state/productsDataSlice';
 import Screens from '@constants/Screens';
 import ProductCard from '@components/ProductCard';
@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
 
 export default function ProductsListVertical(props: { products: Product[] }) {
   const dispatch = useDispatch<AppDispatch>();
+  const personalizationData: PersonalizationData[] = useSelector(
+    (state: RootState) => state.productsData.personalizationData,
+  );
 
   const renderProduct = ({ item }: { item: Product }) => (
     <View style={styles.listItem}>
@@ -31,7 +34,11 @@ export default function ProductsListVertical(props: { products: Product[] }) {
         }}
         onCreatePress={() => {
           dispatch(setSelectedProductId(item.productId));
-          router.navigate(Screens.productCreatePath);
+          router.navigate(
+            personalizationData.length
+              ? Screens.personalizationDataPath
+              : Screens.productCreatePath,
+          );
         }}
       />
     </View>

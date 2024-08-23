@@ -1,4 +1,4 @@
-import { Button, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import dateFormat from '@helpers/DateFormatHelper';
@@ -28,21 +28,18 @@ const styles = StyleSheet.create({
 });
 
 export default function CustomDateTimePicker(props: {
-  defaultDate?: Date;
+  date: Date;
+  onDateChange: (date: Date) => void;
   label: string;
   isRequired?: boolean;
   icon?: string;
   backgroundColor?: string;
 }) {
-  const [date, setDate] = useState(
-    props.defaultDate || new Date(1598051730000),
-  );
   const [modal, setModalVisible] = useState(false);
 
-  const onChange = (_event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
+  const onChange = (_event: any, selectedDate: Date | undefined) => {
     setModalVisible(false);
-    setDate(currentDate);
+    if (selectedDate) props.onDateChange(selectedDate);
   };
 
   const showMode = (currentMode: string) => {
@@ -80,13 +77,13 @@ export default function CustomDateTimePicker(props: {
         style={[styles.dateTimeContainer, { borderColor: colors.border }]}
         onPress={showDatepicker}
       >
-        <CustomText isSecondary>{dateFormat(date)}</CustomText>
+        <CustomText isSecondary>{dateFormat(props.date)}</CustomText>
       </TouchableOpacity>
 
       {modal && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={props.date}
           mode="date"
           is24Hour={true}
           onChange={onChange}

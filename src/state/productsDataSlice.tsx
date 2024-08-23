@@ -1,22 +1,35 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { Product, Category, ProductTag } from '@models/Types';
+import {
+  Product,
+  Category,
+  ProductTag,
+  Order,
+  PersonalizationData,
+} from '@models/Types';
+import { PURGE } from 'redux-persist';
 
 interface ProductsDataState {
   products: Product[];
   categories: Category[];
   tags: ProductTag[];
-  selectedCategoryId: number;
-  selectedProductId: number;
-  selectedTags: number[];
+  selectedCategoryId: string;
+  selectedProductId: string;
+  selectedTags: string[];
+  orders: Order[];
+  personalizationData: PersonalizationData[];
+  selectedPersonalizationDataId: string | undefined;
 }
 
 const initialState: ProductsDataState = {
   products: [],
   categories: [],
   tags: [],
-  selectedCategoryId: 0,
-  selectedProductId: 0,
+  selectedCategoryId: '0',
+  selectedProductId: '0',
   selectedTags: [],
+  orders: [],
+  personalizationData: [],
+  selectedPersonalizationDataId: undefined,
 };
 
 export const setProductsAsync = createAsyncThunk(
@@ -55,17 +68,31 @@ export const setTagsAsync = createAsyncThunk(
   },
 );
 
+export const createOrderAsync = createAsyncThunk(
+  'productsData/createOrderAsync',
+  async (order: Order) => {
+    return order;
+  },
+);
+
+export const createOrUpdatePersonalizationDataAsync = createAsyncThunk(
+  'productsData/createOrUpdatePersonalizationDataAsync',
+  async (personalizationDataItem: PersonalizationData) => {
+    return personalizationDataItem;
+  },
+);
+
 export const productsSlice = createSlice({
   name: 'productsData',
   initialState,
   reducers: {
-    setSelectedCategoryId: (state, action: PayloadAction<number>) => {
+    setSelectedCategoryId: (state, action: PayloadAction<string>) => {
       state.selectedCategoryId = action.payload;
     },
-    setSelectedProductId: (state, action: PayloadAction<number>) => {
+    setSelectedProductId: (state, action: PayloadAction<string>) => {
       state.selectedProductId = action.payload;
     },
-    setSelectedTag: (state, action: PayloadAction<number>) => {
+    setSelectedTag: (state, action: PayloadAction<string>) => {
       if (state.selectedTags.includes(action.payload)) {
         state.selectedTags = state.selectedTags.filter(
           (tag) => tag !== action.payload,
@@ -73,6 +100,12 @@ export const productsSlice = createSlice({
       } else {
         state.selectedTags.push(action.payload);
       }
+    },
+    setSelectedPersonalizationDataId: (
+      state,
+      action: PayloadAction<string | undefined>,
+    ) => {
+      state.selectedPersonalizationDataId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -113,10 +146,40 @@ export const productsSlice = createSlice({
         (state, action: PayloadAction<ProductTag[]>) => {
           state.tags = action.payload;
         },
-      );
+      )
+      .addCase(
+        createOrderAsync.fulfilled,
+        (state, action: PayloadAction<Order>) => {
+          state.orders.push(action.payload);
+        },
+      )
+      .addCase(
+        createOrUpdatePersonalizationDataAsync.fulfilled,
+        (state, action: PayloadAction<PersonalizationData>) => {
+          if (
+            !state.personalizationData.find(
+              (item) => item.id === action.payload.id,
+            )
+          ) {
+            state.personalizationData.push(action.payload);
+          } else {
+            state.personalizationData = state.personalizationData.map((item) =>
+              item.id === action.payload.id ? action.payload : item,
+            );
+          }
+        },
+      )
+      .addCase(PURGE, (state) => {
+        state.orders = [];
+        state.personalizationData = [];
+      });
   },
 });
 
-export const { setSelectedProductId, setSelectedCategoryId, setSelectedTag } =
-  productsSlice.actions;
+export const {
+  setSelectedProductId,
+  setSelectedCategoryId,
+  setSelectedTag,
+  setSelectedPersonalizationDataId,
+} = productsSlice.actions;
 export default productsSlice.reducer;

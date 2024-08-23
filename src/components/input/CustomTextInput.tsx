@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 });
 
 export default function CustomTextInput(props: {
-  value?: string;
+  value: string;
   placeholder: string;
   onChangeText: (text: string) => void;
   label: string;
@@ -41,13 +41,7 @@ export default function CustomTextInput(props: {
   textProps?: any;
   iconProps?: any;
 }) {
-  const [textInputValue, setTextInputValue] = useState(props.value || '');
   const [isFocused, setIsFocused] = useState(false);
-
-  const textInputHandler = (enteredText: string) => {
-    setTextInputValue(enteredText);
-    props.onChangeText(enteredText);
-  };
 
   const { colors } = useTheme();
 
@@ -83,9 +77,9 @@ export default function CustomTextInput(props: {
       <TextInput
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        value={textInputValue}
+        value={props.value}
         placeholder={props.placeholder}
-        onChangeText={textInputHandler}
+        onChangeText={props.onChangeText}
         placeholderTextColor={colors.secondaryText}
         style={[
           styles.textInput,

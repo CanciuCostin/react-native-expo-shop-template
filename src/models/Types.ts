@@ -1,18 +1,44 @@
 export type Product = {
-  categoryId: number;
-  productId: number;
+  categoryId: string;
+  productId: string;
   productTitle: string;
   photos: string[];
-  productTags: number[];
+  productTags: string[];
   productDescription: string;
+  productPrice: number;
+  productPriceDiscount: number;
+  productOptions: Map<string,string[]> | undefined;
 };
 
 export type ProductTag = {
-  tagId: number;
+  tagId: string;
   tagName: string;
 };
 
 export type Category = {
-  categoryId: number;
+  categoryId: string;
   categoryName: string;
+};
+
+export type PersonalizationData = {
+  id: string;
+  date: Date | undefined;
+  message: string;
+  image: string | undefined;
+}
+
+export enum OrderStatus {
+  Pending = 'Pending',
+  Processing = 'Processing',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled'
+}
+
+export type Order = {
+  orderId: string;
+  orderDate: Date;
+  orderStatus: OrderStatus;
+  productId: string;
+  personalizationItemId: string;
+  extraInfo: Map<string, string>;
 };

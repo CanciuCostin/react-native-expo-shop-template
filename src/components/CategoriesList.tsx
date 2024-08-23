@@ -11,7 +11,11 @@ import CustomText from '@components/CustomText';
 
 const styles = StyleSheet.create({
   categoriesContainer: {
-    paddingTop: '1%',
+    paddingTop: '3%',
+  },
+  listContainer: {
+    width: '100%',
+    paddingBottom: '10%',
   },
   categoryName: {
     paddingLeft: '3%',
@@ -30,35 +34,36 @@ export default function CategoriesList() {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  const renderCategory = ({ item }: { item: Category }) => (
-    <View style={styles.categoriesContainer}>
-      <Link
-        href={{
-          pathname: Screens.categoriesDetailsPath,
-          params: { categoryId: item.categoryId },
-        }}
-        asChild
-      >
-        <TouchableOpacity
-          onPress={() => dispatch(setSelectedCategoryId(item.categoryId))}
+  const renderCategory = function ({ item }: { item: Category }) {
+    const categoryProducts = ProductsHelper.getProductsBasedOnCategoryAndTags(
+      item.categoryId,
+      selectedTags,
+      products,
+    );
+    return categoryProducts.length > 0 ? (
+      <View style={styles.categoriesContainer}>
+        <Link
+          href={{
+            pathname: Screens.categoriesDetailsPath,
+            params: { categoryId: item.categoryId },
+          }}
+          asChild
         >
-          <CustomText fontSize="2.2%" isBold style={styles.categoryName}>
-            {item.categoryName}
-          </CustomText>
-        </TouchableOpacity>
-      </Link>
-      <ProductsListHorizontal
-        products={ProductsHelper.getProductsBasedOnCategoryAndTags(
-          item.categoryId,
-          selectedTags,
-          products,
-        )}
-      />
-    </View>
-  );
+          <TouchableOpacity
+            onPress={() => dispatch(setSelectedCategoryId(item.categoryId))}
+          >
+            <CustomText fontSize="2.2%" isBold style={styles.categoryName}>
+              {item.categoryName}
+            </CustomText>
+          </TouchableOpacity>
+        </Link>
+        <ProductsListHorizontal products={categoryProducts} />
+      </View>
+    ) : null;
+  };
 
   return (
-    <View style={styles.categoriesContainer}>
+    <View style={styles.listContainer}>
       <FlatList
         data={categories}
         renderItem={renderCategory}

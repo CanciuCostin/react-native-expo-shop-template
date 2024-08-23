@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import LottieView from 'lottie-react-native';
 import { router, SplashScreen } from 'expo-router';
@@ -17,6 +17,7 @@ import { AppDispatch } from '@state/store';
 import { useFonts } from 'expo-font';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
+// import { loadOrders, loadPersonalizationData } from '@service/OrderService';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,9 +40,6 @@ const styles = StyleSheet.create({
 SplashScreen.preventAutoHideAsync();
 
 export default function SplashAnimation() {
-  // setTimeout(() => {
-  //   router.navigate('(tabs)');
-  // }, 5000);
   const [fontsLoaded, fontsError] = useFonts({
     RobotoRegular: require('@assets/fonts/Roboto-Regular.ttf'),
     RobotoBold: require('@assets/fonts/Roboto-Bold.ttf'),
@@ -53,15 +51,16 @@ export default function SplashAnimation() {
   const { colors } = useTheme();
 
   useEffect(() => {
-    // Perform some sort of async data or asset fetching.a
+    // Perform some sort of async data or asset fetching
     setTimeout(() => {
-      // dispatch(setProductsAsync(DUMMY_PRODUCTS));
-      // dispatch(setCategoriesAsync(DUMMY_CATEGORIES));
-      // dispatch(setTagsAsync(DUMMY_CATEGORY_TAGS));
       Promise.all([
         dispatch(setProductsAsync(DUMMY_PRODUCTS)),
         dispatch(setCategoriesAsync(DUMMY_CATEGORIES)),
         dispatch(setTagsAsync(DUMMY_CATEGORY_TAGS)),
+        //loadOrders().then((orders) => dispatch(setOrdersAsync(orders))),
+        //loadPersonalizationData().then((personalizationData) =>
+        //  dispatch(setPersonalizationDataAsync(personalizationData)),
+        //),
       ]).then(() => {
         setDataLoaded(true);
       });
