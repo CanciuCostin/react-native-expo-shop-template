@@ -35,5 +35,6 @@
     "language": "Language",
     "messageFieldTooLongError": "Message is too long. Maximum length is 20 characters.",
     "messageFieldEmptyError": "Message is empty. Please enter a message.",
-    "termsNotApprovedError": "You must approve the terms and conditions to continue."
+    "termsNotApprovedError": "You must approve the terms and conditions to continue.",
+    "currency": "EUR"
 }

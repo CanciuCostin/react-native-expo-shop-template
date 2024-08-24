@@ -142,13 +142,9 @@ export default function ProductDetailsScreen() {
           {productCategory}
         </CustomText>
         <View style={styles.durationContainer}>
-          <FontAwesome
-            name="clock-o"
-            size={hp('2.5%')}
-            color={colors.primary}
-          />
+          <FontAwesome name="money" size={hp('2.5%')} color={colors.primary} />
           <CustomText isBold>
-            {Strings.WHITESPACE_CHARACTER + product.categoryId.toString()}
+            {` ${t('currency')} ${product.productPrice}`}
           </CustomText>
         </View>
         <View style={styles.buttonContainer}>

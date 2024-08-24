@@ -74,7 +74,7 @@ export default function ProductCard(props: {
       />
       <View style={styles.productDetailsContainer}>
         <View style={styles.productTextDetailsContainer}>
-          <CustomText>{props.product.productPrice}</CustomText>
+          <CustomText>{`${t('currency')} ${props.product.productPrice}`}</CustomText>
           <CustomText isBold style={styles.categoriesName}>
             {props.product.productTitle}
           </CustomText>

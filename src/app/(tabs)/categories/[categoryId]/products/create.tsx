@@ -131,7 +131,7 @@ export default function ProductCreateScreen() {
     initProductOptions(product?.productOptions),
   );
   const [date, setDate] = useState(
-    new Date(personalizationDataItem?.date || 0),
+    new Date(personalizationDataItem?.date || Date.now()),
   );
   const [message, setMessage] = useState<string>(
     personalizationDataItem?.message || '',
@@ -146,7 +146,9 @@ export default function ProductCreateScreen() {
     image: z.string(),
     dropdown: z.map(z.string(), z.string()),
     dateTime: z.date(),
-    switch: z.literal(true, { message: t('termsNotApprovedError') }),
+    switch: z.literal<boolean>(true, {
+      errorMap: () => ({ message: t('termsNotApprovedError') }),
+    }),
   });
 
   function validateInput(formData: Record<string, unknown>): boolean {

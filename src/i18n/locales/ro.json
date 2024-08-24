@@ -35,5 +35,6 @@
     "language": "Limbă",
     "messageFieldTooLongError": "Mesajul este prea lung. Lungimea maximă este de 20 de caractere.",
     "messageFieldEmptyError": "Mesajul este gol. Te rugăm să introduci un mesaj.",
-    "termsNotApprovedError": "Trebuie să aprobii termenii și condițiile pentru a continua."
+    "termsNotApprovedError": "Trebuie să aprobii termenii și condițiile pentru a continua.",
+    "currency": "RON"
 }

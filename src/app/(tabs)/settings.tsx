@@ -3,10 +3,11 @@ import CustomSwitch from '@components/input/CustomSwitch';
 import LanguageSwitcher from '@components/input/LanguageSwitcher';
 import SettingsDropDown from '@components/input/SettingsDropDown';
 import { useTheme } from '@react-navigation/native';
-import { StyleSheet, View } from 'react-native';
+import { Linking, Platform, StyleSheet, View } from 'react-native';
 import SettingsButton from '@components/input/SettingsButton';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { Appearance } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,13 +49,16 @@ export default function SettingsScreen() {
         <LanguageSwitcher />
         <SettingsDropDown
           label={t('interfaceTheme')}
-          dropdownItems={[]}
+          dropdownItems={['light', 'dark']}
+          onValueChange={(value) => Appearance.setColorScheme(value as any)}
           icon="moon-o"
         />
         <CustomSwitch
           isEnabled={pushNotificationsEnabled}
-          onToggle={() => setPushNotificationsEnabled}
-          applySettingsStyling={true}
+          onToggle={() =>
+            setPushNotificationsEnabled(!pushNotificationsEnabled)
+          }
+          applySettingsStyling
           icon="bell-o"
           text={<CustomText isBold>{t('pushNotifications')}</CustomText>}
         />
@@ -78,7 +82,15 @@ export default function SettingsScreen() {
         <SettingsButton
           icon="star-o"
           label={t('rateTheApp')}
-          onPress={() => {}}
+          onPress={() =>
+            Linking.openURL(
+              Platform.OS === 'android'
+                ? (process.env.EXPO_PUBLIC_RATE_APP_URL_ANDROID as string)
+                : (process.env.EXPO_PUBLIC_RATE_APP_URL_IOS as string),
+            ).catch((err) => {
+              console.error(err);
+            })
+          }
         />
         <SettingsButton
           icon="money"
@@ -88,22 +100,30 @@ export default function SettingsScreen() {
         <SettingsButton
           icon="mail-forward"
           label={t('contactUs')}
-          onPress={() => {}}
+          onPress={() =>
+            Linking.openURL(process.env.EXPO_PUBLIC_CONTACT_URL as string)
+          }
         />
         <SettingsButton
           icon="lock"
           label={t('privacyPolicy')}
-          onPress={() => {}}
+          onPress={() =>
+            Linking.openURL(process.env.EXPO_PUBLIC_PRIVACY_URL as string)
+          }
         />
         <SettingsButton
           icon="book"
           label={t('termsAndConditions')}
-          onPress={() => {}}
+          onPress={() =>
+            Linking.openURL(process.env.EXPO_PUBLIC_TERMS_URL as string)
+          }
         />
         <SettingsButton
           icon="info-circle"
           label={t('aboutUs')}
-          onPress={() => {}}
+          onPress={() =>
+            Linking.openURL(process.env.EXPO_PUBLIC_ABOUT_URL as string)
+          }
         />
         <CustomText style={styles.copyrights}>{t('copyrights')}</CustomText>
       </View>
