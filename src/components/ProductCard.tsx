@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
   },
-  categoriesPhoto: {
+  productImage: {
     width: '100%',
     height: '70%',
     borderRadius: 10,
@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.0,
     elevation: 3,
   },
-  categoriesName: {
-    fontSize: hp('1.8%'),
-  },
-  categoriesInfo: {},
   productDetailsContainer: {
     flex: 1,
     borderBottomLeftRadius: 10,
@@ -69,13 +65,13 @@ export default function ProductCard(props: {
       ]}
     >
       <Image
-        style={[styles.categoriesPhoto, { shadowColor: colors.shadowColor }]}
+        style={[styles.productImage, { shadowColor: colors.shadowColor }]}
         source={{ uri: props.product.photos[0] }}
       />
       <View style={styles.productDetailsContainer}>
         <View style={styles.productTextDetailsContainer}>
           <CustomText>{`${t('currency')} ${props.product.productPrice}`}</CustomText>
-          <CustomText isBold style={styles.categoriesName}>
+          <CustomText isBold fontSize="1.8%">
             {props.product.productTitle}
           </CustomText>
         </View>

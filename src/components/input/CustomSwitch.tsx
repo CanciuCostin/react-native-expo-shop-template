@@ -1,7 +1,8 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Switch, StyleSheet } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   switchContainer: {
@@ -42,7 +43,7 @@ export default function CustomSwitch(props: {
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'default-icon'}
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
           />
         )}

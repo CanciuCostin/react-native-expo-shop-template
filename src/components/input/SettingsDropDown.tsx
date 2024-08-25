@@ -58,12 +58,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     paddingHorizontal: '2%',
   },
-
   closeModalButton: {
     flex: 1,
     alignItems: 'flex-end',
   },
-
   modalList: {
     width: '100%',
     flex: 6,
@@ -121,7 +119,7 @@ export default function SettingsDropDown(props: {
             onPress={() => setModalVisible(false)}
             style={styles.closeModalButton}
           >
-            <FontAwesome name="close" size={20} color={colors.text} />
+            <FontAwesome name="close" size={hp('2.2%')} color={colors.text} />
           </TouchableOpacity>
           <View
             style={[
@@ -135,7 +133,6 @@ export default function SettingsDropDown(props: {
                 style={[
                   styles.dropdownLabel,
                   {
-                    color: colors.text,
                     textAlign: 'center',
                     textAlignVertical: 'center',
                   },
@@ -192,7 +189,7 @@ export default function SettingsDropDown(props: {
           {props.icon && (
             <FontAwesome
               name={(props.icon as any) || 'default-icon'}
-              size={16}
+              size={hp('2%')}
               color={colors.primary}
             />
           )}
@@ -200,15 +197,16 @@ export default function SettingsDropDown(props: {
             <CountryFlag isoCode={props.countryFlag} size={16} />
           )}
         </View>
-        <CustomText
-          isBold
-          style={[styles.dropdownLabel, { color: colors.text }]}
-        >
+        <CustomText isBold style={[styles.dropdownLabel]}>
           {Strings.WHITESPACE_CHARACTER + props.label}
         </CustomText>
         <CustomText isSecondary style={styles.dropdownSelectedItem}>
           {dropdownItem + Strings.WHITESPACE_CHARACTER}
-          <FontAwesome name="angle-right" size={16} color={colors.primary} />
+          <FontAwesome
+            name="angle-right"
+            size={hp('2')}
+            color={colors.primary}
+          />
         </CustomText>
       </TouchableOpacity>
     </View>

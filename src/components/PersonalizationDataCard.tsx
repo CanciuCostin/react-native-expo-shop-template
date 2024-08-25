@@ -32,12 +32,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.0,
     elevation: 3,
   },
-  personalizationMessage: {
-    fontSize: hp('1.8%'),
-  },
-  personalizationDate: {
-    fontSize: hp('1.6%'),
-  },
   personalizationDetailsContainer: {
     flex: 2,
     borderBottomLeftRadius: 10,
@@ -87,15 +81,10 @@ export default function PersonalizationDataCard(props: {
       )}
 
       <View style={styles.personalizationDetailsContainer}>
-        <CustomText
-          isBold
-          style={[styles.personalizationMessage, { color: colors.text }]}
-        >
+        <CustomText isBold fontSize="1.8%">
           {props.personalizationDataItem.message}
         </CustomText>
-        <CustomText
-          style={[styles.personalizationDate, { color: colors.secondaryText }]}
-        >
+        <CustomText isSecondary fontSize="1.6%">
           {props.personalizationDataItem.date &&
             new Date(props.personalizationDataItem.date).toDateString()}
         </CustomText>

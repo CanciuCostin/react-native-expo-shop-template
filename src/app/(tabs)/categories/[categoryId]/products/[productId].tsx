@@ -20,7 +20,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { FontAwesome } from '@expo/vector-icons';
-import Strings from '@constants/Strings';
 import { router } from 'expo-router';
 import Screens from '@constants/Screens';
 import { useTranslation } from 'react-i18next';
@@ -138,9 +137,7 @@ export default function ProductDetailsScreen() {
       </View>
       <View style={styles.productInfoContainer}>
         <CustomText isBold>{product.productTitle}</CustomText>
-        <CustomText style={{ color: colors.secondaryText }}>
-          {productCategory}
-        </CustomText>
+        <CustomText isSecondary>{productCategory}</CustomText>
         <View style={styles.durationContainer}>
           <FontAwesome name="money" size={hp('2.5%')} color={colors.primary} />
           <CustomText isBold>

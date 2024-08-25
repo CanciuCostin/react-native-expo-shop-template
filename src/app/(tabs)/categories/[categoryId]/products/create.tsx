@@ -244,10 +244,7 @@ export default function ProductCreateScreen() {
               source={{ uri: product?.photos[0] }}
               style={[styles.productImage, { borderColor: colors.border }]}
             />
-            <CustomText
-              isBold
-              style={[styles.productText, { color: colors.text }]}
-            >
+            <CustomText isBold style={[styles.productText]}>
               {product?.productTitle}
             </CustomText>
           </View>
@@ -269,7 +266,7 @@ export default function ProductCreateScreen() {
                 <View style={styles.dropdownContainer}>
                   <DropDown
                     dropdownItems={optionValues}
-                    label={`$t('select') ${option}:`}
+                    label={`${t('select')} ${option}:`}
                     isRequired
                     icon="arrow-down"
                     selectedItem={productOptions.get(option) || ''}

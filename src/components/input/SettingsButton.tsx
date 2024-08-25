@@ -3,6 +3,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import Strings from '@constants/Strings';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,17 +50,21 @@ export default function SettingsButton(props: {
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'default-icon'}
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
           />
         )}
       </View>
-      <CustomText isBold style={[styles.buttonLabel, { color: colors.text }]}>
+      <CustomText isBold style={[styles.buttonLabel]}>
         {Strings.WHITESPACE_CHARACTER + props.label}
       </CustomText>
       <CustomText isSecondary style={styles.buttonValue}>
         {props.value && props.value + Strings.WHITESPACE_CHARACTER}
-        <FontAwesome name="long-arrow-right" size={16} color={colors.primary} />
+        <FontAwesome
+          name="long-arrow-right"
+          size={hp('2%')}
+          color={colors.primary}
+        />
       </CustomText>
     </TouchableOpacity>
   );

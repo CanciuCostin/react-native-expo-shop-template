@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     marginTop: '60%',
     alignSelf: 'center',
   },
-
   modalWindow: {
     flex: 10,
     borderRadius: 10,
@@ -52,12 +51,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     paddingHorizontal: '2%',
   },
-
   closeModalButton: {
     flex: 1,
     alignItems: 'flex-end',
   },
-
   modalList: {
     width: '100%',
     flex: 6,
@@ -111,7 +108,7 @@ export default function DropDown(props: {
             onPress={() => setModalVisible(false)}
             style={styles.closeModalButton}
           >
-            <FontAwesome name="close" size={20} color={colors.text} />
+            <FontAwesome name="close" size={hp('2.2%')} color={colors.text} />
           </TouchableOpacity>
           <View
             style={[
@@ -125,7 +122,6 @@ export default function DropDown(props: {
                 style={[
                   styles.dropdownLabel,
                   {
-                    color: colors.text,
                     textAlign: 'center',
                     textAlignVertical: 'center',
                   },
@@ -168,11 +164,11 @@ export default function DropDown(props: {
           </View>
         </View>
       </Modal>
-      <CustomText isBold style={[styles.dropdownLabel, { color: colors.text }]}>
+      <CustomText isBold style={[styles.dropdownLabel]}>
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'default-icon'}
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
           />
         )}
@@ -190,7 +186,7 @@ export default function DropDown(props: {
           {props.selectedItem + Strings.WHITESPACE_CHARACTER}
           <FontAwesome
             name="angle-down"
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
             style={{ flex: 1 }}
           />

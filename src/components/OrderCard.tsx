@@ -28,19 +28,15 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   orderIdText: {
-    fontSize: hp('1.7%'),
     textAlign: 'left',
   },
   orderStatusText: {
-    fontSize: hp('1.8%'),
     textAlign: 'right',
   },
   orderDateText: {
-    fontSize: hp('1.5%'),
     textAlign: 'right',
   },
   orderTitleText: {
-    fontSize: hp('1.8%'),
     textAlign: 'left',
   },
   orderDetailsContainer: {
@@ -114,19 +110,20 @@ export default function OrderCard(props: {
           )}
         </View>
         <View style={styles.orderTextDetailsContainer}>
-          <CustomText isBold style={[styles.orderTitleText]}>
+          <CustomText isBold fontSize="1.8%" style={[styles.orderTitleText]}>
             {props.orderProduct.productTitle}
           </CustomText>
-          <CustomText isSecondary style={[styles.orderIdText]}>
+          <CustomText isSecondary fontSize="1.7%" style={[styles.orderIdText]}>
             {t('orderId')} {props.order.orderId.slice(0, 8)}
           </CustomText>
         </View>
         <View style={styles.orderTextStatusContainer}>
-          <CustomText isBold style={styles.orderDateText}>
+          <CustomText isBold fontSize="1.5%" style={styles.orderDateText}>
             {new Date(props.order.orderDate).toDateString()}
           </CustomText>
           <CustomText
             isBold
+            fontSize="1.8%"
             style={[styles.orderStatusText, { color: colors.primary }]}
           >
             {props.order.orderStatus}

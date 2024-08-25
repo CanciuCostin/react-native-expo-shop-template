@@ -4,13 +4,7 @@ import { TextInput, StyleSheet, View } from 'react-native';
 import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
-
-// const containerStyle = (backgroundColor?: string): ViewStyle => ({
-//   flex: 1,
-//   backgroundColor: Colors.grayDivider,
-//   paddingVertical: '2%',
-//   paddingHorizontal: '5%',
-// });
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -52,18 +46,11 @@ export default function CustomTextInput(props: {
         { backgroundColor: props.backgroundColor || colors.card },
       ]}
     >
-      <CustomText
-        isBold
-        style={[
-          styles.textInputLabel,
-          props.textProps || {},
-          { color: colors.text },
-        ]}
-      >
+      <CustomText isBold style={[styles.textInputLabel, props.textProps || {}]}>
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'info'}
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
             {...props.iconProps}
           />

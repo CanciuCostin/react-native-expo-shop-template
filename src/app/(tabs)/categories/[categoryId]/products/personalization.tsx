@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   label: {
     paddingVertical: '2%',
     paddingLeft: '2%',
-    fontSize: hp('1.5%'),
   },
 });
 
@@ -50,7 +49,7 @@ export default function PersonalizationDataList() {
 
   return (
     <View style={styles.container}>
-      <CustomText style={[styles.label, { color: colors.secondaryText }]}>
+      <CustomText fontSize="1.6%" isSecondary style={[styles.label]}>
         {t('personalizeTheProduct')}
       </CustomText>
       <PersonalizationDataCard
@@ -62,7 +61,7 @@ export default function PersonalizationDataList() {
         }}
         onPress={() => router.replace(Screens.productCreatePath)}
       />
-      <CustomText style={[{ color: colors.secondaryText }, styles.label]}>
+      <CustomText fontSize="1.6%" isSecondary style={[styles.label]}>
         {t('selectFromPreviousPersonalizations')}
       </CustomText>
       <FlatList

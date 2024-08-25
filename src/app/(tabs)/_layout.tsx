@@ -4,13 +4,16 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return (
+    <FontAwesome size={hp('3.5%')} style={{ marginBottom: -3 }} {...props} />
+  );
 }
 
 export default function TabLayout() {

@@ -4,6 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,7 +20,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   imageContainer: {
     flex: 1,
     width: '100%',
@@ -68,14 +68,11 @@ export default function CustomImagePicker(props: {
         { backgroundColor: props.backgroundColor || colors.card },
       ]}
     >
-      <CustomText
-        isBold
-        style={[styles.imageInputTitle, { color: colors.text }]}
-      >
+      <CustomText isBold style={[styles.imageInputTitle]}>
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'info'}
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
           />
         )}
@@ -86,7 +83,11 @@ export default function CustomImagePicker(props: {
         </CustomText>
       </CustomText>
       <CustomText isSecondary style={styles.imageInputLabel}>
-        <FontAwesome name="lock" size={15} color={colors.secondaryText} />
+        <FontAwesome
+          name="lock"
+          size={hp('1.8%')}
+          color={colors.secondaryText}
+        />
         {Strings.WHITESPACE_CHARACTER + props.notice}
       </CustomText>
       <TouchableOpacity
@@ -109,7 +110,7 @@ export default function CustomImagePicker(props: {
         ) : (
           <FontAwesome
             name="photo"
-            size={40}
+            size={hp('5%')}
             color={colors.secondaryText}
             style={styles.imageIcon}
           />

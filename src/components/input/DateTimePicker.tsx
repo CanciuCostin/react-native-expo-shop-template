@@ -6,6 +6,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,11 +60,11 @@ export default function CustomDateTimePicker(props: {
         { backgroundColor: props.backgroundColor || colors.card },
       ]}
     >
-      <CustomText isBold style={[styles.dateTimeLabel, { color: colors.text }]}>
+      <CustomText isBold style={[styles.dateTimeLabel]}>
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'default-icon'}
-            size={16}
+            size={hp('2%')}
             color={colors.primary}
           />
         )}
