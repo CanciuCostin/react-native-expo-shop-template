@@ -5,6 +5,7 @@ import { useTheme } from '@react-navigation/native';
 import CustomText from './CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTranslation } from 'react-i18next';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   productContainer: {
@@ -12,6 +13,7 @@ const styles = StyleSheet.create({
     height: hp('25%'),
     borderWidth: 1,
     borderRadius: 10,
+    ...ShadowStyles,
   },
   productImage: {
     width: '100%',
@@ -19,14 +21,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    shadowColor: 'blue',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    elevation: 3,
   },
   productDetailsContainer: {
     flex: 1,
@@ -61,11 +55,15 @@ export default function ProductCard(props: {
       onPress={props.onCardPress}
       style={[
         styles.productContainer,
-        { backgroundColor: colors.background, borderColor: colors.border },
+        {
+          backgroundColor: colors.background,
+          borderColor: colors.border,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       <Image
-        style={[styles.productImage, { shadowColor: colors.shadowColor }]}
+        style={[styles.productImage]}
         source={{ uri: props.product.photos[0] }}
       />
       <View style={styles.productDetailsContainer}>

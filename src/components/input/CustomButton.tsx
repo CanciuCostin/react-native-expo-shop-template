@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const buttonContainerStyle = (backgroundColor: string): ViewStyle => ({
   flex: 1,
@@ -17,6 +18,7 @@ const buttonContainerStyle = (backgroundColor: string): ViewStyle => ({
   borderRadius: 10,
   alignItems: 'center',
   justifyContent: 'center',
+  ...ShadowStyles,
 });
 
 const styles = StyleSheet.create({
@@ -60,7 +62,7 @@ export default function CustomButton(props: {
       style={[
         buttonContainerStyle(props.backgroundColor || colors.primary),
         props.style || {},
-        { borderColor: colors.border },
+        { borderColor: colors.border, shadowColor: colors.shadowColor },
       ]}
       disabled={props.disabled || loading}
     >

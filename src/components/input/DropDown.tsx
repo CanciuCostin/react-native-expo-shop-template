@@ -12,6 +12,7 @@ import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   dropdownContainer: {
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: '2%',
     paddingHorizontal: '5%',
+    ...ShadowStyles,
   },
   dropdown: {
     width: '100%',
@@ -42,14 +44,8 @@ const styles = StyleSheet.create({
   modalWindow: {
     flex: 10,
     borderRadius: 10,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 5,
-    elevation: 5,
     paddingHorizontal: '2%',
+    ...ShadowStyles,
   },
   closeModalButton: {
     flex: 1,
@@ -91,7 +87,10 @@ export default function DropDown(props: {
     <View
       style={[
         styles.dropdownContainer,
-        { backgroundColor: props.backgroundColor || colors.card },
+        {
+          backgroundColor: props.backgroundColor || colors.card,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       <Modal

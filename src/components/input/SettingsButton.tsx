@@ -4,6 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import Strings from '@constants/Strings';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     paddingHorizontal: '5%',
+    ...ShadowStyles,
   },
   buttonIcon: {
     flex: 1,
@@ -42,6 +44,7 @@ export default function SettingsButton(props: {
         {
           backgroundColor: props.backgroundColor || colors.card,
           borderColor: colors.border,
+          shadowColor: colors.shadowColor,
         },
       ]}
       onPress={() => props.onPress()}

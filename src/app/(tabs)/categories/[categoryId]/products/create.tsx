@@ -15,7 +15,6 @@ import {
 import CustomButton from '@components/input/CustomButton';
 import CustomSwitch from '@components/input/CustomSwitch';
 import { useRef, useState, Fragment } from 'react';
-import PaddingContainer from '@components/PaddingContainer';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import TermsAndConditions from '@components/TermsAndConditions';
@@ -31,14 +30,19 @@ import * as Crypto from 'expo-crypto';
 import { router } from 'expo-router';
 import Screens from '@constants/Screens';
 import { useTranslation } from 'react-i18next';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   productContainer: {
-    height: hp('10%'),
+    height: hp('12%'),
     flexDirection: 'row',
+    marginTop: '6%',
+    marginBottom: '3%',
+    paddingVertical: '2%',
+    ...ShadowStyles,
   },
   productImage: {
     flex: 1,
@@ -53,21 +57,26 @@ const styles = StyleSheet.create({
   },
   imagePickerContainer: {
     height: hp('30%'),
+    marginVertical: '3%',
   },
   textInputContainer: {
     height: hp('10%'),
+    marginVertical: '3%',
   },
   dropdownContainer: {
     height: hp('10%'),
+    marginVertical: '3%',
   },
   dateTimePickerContainer: {
     height: hp('10%'),
+    marginVertical: '3%',
   },
   buttonContainer: {
     height: hp('8%'),
   },
   switchContainer: {
-    height: hp('6%'),
+    height: hp('8%'),
+    marginTop: '3%',
   },
 });
 
@@ -182,7 +191,6 @@ export default function ProductCreateScreen() {
 
   function onButtonPress(): Promise<void> {
     return new Promise((resolve, reject) => {
-      console.log('Create product');
       // persistor.purge().then(() => {
       //   resolve();
       // });
@@ -234,12 +242,19 @@ export default function ProductCreateScreen() {
   return (
     <View style={[styles.container]}>
       <ScrollView
-        contentContainerStyle={{ backgroundColor: colors.card }}
+        contentContainerStyle={{ backgroundColor: colors.background }}
         ref={scrollViewRef}
       >
         <View>
-          <PaddingContainer />
-          <View style={styles.productContainer}>
+          <View
+            style={[
+              styles.productContainer,
+              {
+                backgroundColor: colors.card,
+                shadowColor: colors.shadowColor,
+              },
+            ]}
+          >
             <Image
               source={{ uri: product?.photos[0] }}
               style={[styles.productImage, { borderColor: colors.border }]}
@@ -248,7 +263,6 @@ export default function ProductCreateScreen() {
               {product?.productTitle}
             </CustomText>
           </View>
-          <PaddingContainer />
           <View style={styles.imagePickerContainer}>
             <ImagePicker
               image={image}
@@ -259,7 +273,6 @@ export default function ProductCreateScreen() {
             ></ImagePicker>
           </View>
           <InputValidationError errors={errors.image?._errors || []} />
-          <PaddingContainer />
           {Array.from(product?.productOptions || []).map(
             ([option, optionValues]) => (
               <Fragment key={option}>
@@ -278,7 +291,6 @@ export default function ProductCreateScreen() {
                   ></DropDown>
                 </View>
                 <InputValidationError errors={errors.dropdown?._errors || []} />
-                <PaddingContainer />
               </Fragment>
             ),
           )}
@@ -291,7 +303,6 @@ export default function ProductCreateScreen() {
             ></DateTimePicker>
           </View>
           <InputValidationError errors={errors.dateTime?._errors || []} />
-          <PaddingContainer />
           <View style={styles.textInputContainer}>
             <CustomTextInput
               isRequired
@@ -303,7 +314,6 @@ export default function ProductCreateScreen() {
             />
           </View>
           <InputValidationError errors={errors.message?._errors || []} />
-          <PaddingContainer />
           <View style={styles.switchContainer}>
             <CustomSwitch
               isEnabled={termsApproved}
@@ -313,10 +323,9 @@ export default function ProductCreateScreen() {
             ></CustomSwitch>
           </View>
           <InputValidationError errors={errors.switch?._errors || []} />
-          <PaddingContainer />
         </View>
       </ScrollView>
-      <View style={styles.buttonContainer}>
+      <View style={[styles.buttonContainer, { backgroundColor: colors.card }]}>
         <CustomButton
           title={t('orderButton')}
           onPressAsync={onButtonPress}

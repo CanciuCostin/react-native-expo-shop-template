@@ -3,12 +3,14 @@ import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import { View, Switch, StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   switchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: '5%',
+    ...ShadowStyles,
   },
   switchIcon: {
     flex: 1,
@@ -36,7 +38,10 @@ export default function CustomSwitch(props: {
     <View
       style={[
         styles.switchContainer,
-        { backgroundColor: props.backgroundColor || colors.card },
+        {
+          backgroundColor: props.backgroundColor || colors.card,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       <View style={[styles.switchIcon]}>

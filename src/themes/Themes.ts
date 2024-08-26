@@ -53,7 +53,7 @@ export const CyanDeepPurpleDarkTheme: ExtendedTheme = {
     buttonText: Colors.white,
     secondaryText: Colors.grayLightest,
     oddItems: Colors.grayDarkest,
-    shadowColor: Colors.black,
+    shadowColor: Colors.white,
     linkColor: Colors.blue,
     splashScreenBackground: Colors.purpleDark
   },

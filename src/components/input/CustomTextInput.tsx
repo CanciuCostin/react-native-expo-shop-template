@@ -5,12 +5,14 @@ import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     paddingVertical: '2%',
     paddingHorizontal: '5%',
+    ...ShadowStyles,
   },
   textInput: {
     flex: 2,
@@ -43,7 +45,10 @@ export default function CustomTextInput(props: {
     <View
       style={[
         styles.containerStyle,
-        { backgroundColor: props.backgroundColor || colors.card },
+        {
+          backgroundColor: props.backgroundColor || colors.card,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       <CustomText isBold style={[styles.textInputLabel, props.textProps || {}]}>

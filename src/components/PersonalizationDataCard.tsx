@@ -5,6 +5,7 @@ import CustomText from './CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: '3%',
+    ...ShadowStyles,
   },
   newPersonalizationIcon: {
     textAlign: 'center',
@@ -23,14 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '75%',
     borderRadius: 10,
-    //shadowColor: 'blue',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    elevation: 3,
+    borderWidth: 1,
   },
   personalizationDetailsContainer: {
     flex: 2,
@@ -56,7 +51,11 @@ export default function PersonalizationDataCard(props: {
       key={props.personalizationDataItem.id}
       style={[
         styles.container,
-        { backgroundColor: colors.card, borderColor: colors.border },
+        {
+          backgroundColor: colors.card,
+          borderColor: colors.border,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       {props.personalizationDataItem.message === t('newPersonalization') ? (
@@ -68,10 +67,7 @@ export default function PersonalizationDataCard(props: {
         />
       ) : (
         <Image
-          style={[
-            styles.personalizationImage,
-            { shadowColor: colors.shadowColor },
-          ]}
+          style={[styles.personalizationImage, { borderColor: colors.border }]}
           source={
             props.personalizationDataItem.image
               ? { uri: props.personalizationDataItem.image }

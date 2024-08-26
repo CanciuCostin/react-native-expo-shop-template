@@ -5,12 +5,14 @@ import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: '2%',
     paddingHorizontal: '5%',
+    ...ShadowStyles,
   },
   imagePickerContainer: {
     width: '100%',
@@ -65,7 +67,10 @@ export default function CustomImagePicker(props: {
     <View
       style={[
         styles.container,
-        { backgroundColor: props.backgroundColor || colors.card },
+        {
+          backgroundColor: props.backgroundColor || colors.card,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       <CustomText isBold style={[styles.imageInputTitle]}>

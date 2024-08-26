@@ -13,6 +13,7 @@ import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import CountryFlag from 'react-native-country-flag';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   dropdownContainer: {
@@ -49,14 +50,8 @@ const styles = StyleSheet.create({
   modalWindow: {
     flex: 10,
     borderRadius: 10,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 5,
-    elevation: 5,
     paddingHorizontal: '2%',
+    ...ShadowStyles,
   },
   closeModalButton: {
     flex: 1,

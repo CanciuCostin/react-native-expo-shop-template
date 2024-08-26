@@ -1,12 +1,13 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import dateFormat from '@helpers/DateFormatHelper';
+import formatDateByLocale from '@helpers/DateFormatHelper';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Strings from '@constants/Strings';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { ShadowStyles } from '@styles/CommonStyles';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: '2%',
     paddingHorizontal: '5%',
+    ...ShadowStyles,
   },
   dateTimeContainer: {
     width: '100%',
@@ -37,10 +39,17 @@ export default function CustomDateTimePicker(props: {
   backgroundColor?: string;
 }) {
   const [modal, setModalVisible] = useState(false);
+  const [dateFormat, setDateFormat] = useState('');
+
+  useEffect(() => {
+    formatDateByLocale(props.date).then((df) => setDateFormat(df));
+  }, [props.date]);
 
   const onChange = (_event: any, selectedDate: Date | undefined) => {
     setModalVisible(false);
-    if (selectedDate) props.onDateChange(selectedDate);
+    if (selectedDate) {
+      props.onDateChange(selectedDate);
+    }
   };
 
   const showMode = (currentMode: string) => {
@@ -57,7 +66,10 @@ export default function CustomDateTimePicker(props: {
     <View
       style={[
         styles.container,
-        { backgroundColor: props.backgroundColor || colors.card },
+        {
+          backgroundColor: props.backgroundColor || colors.card,
+          shadowColor: colors.shadowColor,
+        },
       ]}
     >
       <CustomText isBold style={[styles.dateTimeLabel]}>
@@ -78,7 +90,7 @@ export default function CustomDateTimePicker(props: {
         style={[styles.dateTimeContainer, { borderColor: colors.border }]}
         onPress={showDatepicker}
       >
-        <CustomText isSecondary>{dateFormat(props.date)}</CustomText>
+        <CustomText isSecondary>{dateFormat}</CustomText>
       </TouchableOpacity>
 
       {modal && (
