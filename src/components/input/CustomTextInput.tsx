@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
     flex: 2,
     borderWidth: 1,
     borderRadius: 10,
-    paddingLeft: '1%',
+    paddingLeft: '2%',
   },
   textInputLabel: {
     flex: 1,
+    paddingBottom: '1%',
   },
 });
 
@@ -79,6 +80,7 @@ export default function CustomTextInput(props: {
           {
             borderColor: isFocused ? colors.primary : colors.border,
             color: colors.secondaryText,
+            fontSize: hp('1.7%'),
           },
         ]}
       />

@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: '5%',
+    flex: 1,
     ...ShadowStyles,
   },
   switchIcon: {

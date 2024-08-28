@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   },
   categoryName: {
     paddingLeft: '3%',
+    paddingBottom: '1%',
   },
 });
 

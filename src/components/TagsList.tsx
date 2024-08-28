@@ -11,18 +11,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTag } from '@state/productsDataSlice';
 import { useTheme } from '@react-navigation/native';
 import CustomText from './CustomText';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   container: {
-    height: 30,
+    height: hp('5%'),
+    alignSelf: 'center',
   },
   item: {
-    paddingHorizontal: 10,
+    paddingHorizontal: wp('3%'),
     borderRadius: 10,
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: wp('1%'),
   },
   title: {},
 });

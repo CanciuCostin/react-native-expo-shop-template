@@ -19,6 +19,7 @@ export {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+
   return (
     <ThemeProvider
       value={

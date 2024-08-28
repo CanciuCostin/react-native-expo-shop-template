@@ -21,14 +21,14 @@ import { useTheme } from '@react-navigation/native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: '90%',
+    paddingBottom: '30%',
     alignItems: 'center',
     alignContent: 'space-between',
   },
   lottieImage: {
     width: '40%',
     height: '40%',
-    top: '40%',
+    top: '25%',
   },
   appIcon: {
     width: '100%',

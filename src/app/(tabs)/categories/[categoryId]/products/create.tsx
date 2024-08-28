@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
   productContainer: {
     height: hp('12%'),
     flexDirection: 'row',
-    marginTop: '6%',
-    marginBottom: '3%',
+    marginTop: '3%',
+    marginBottom: '1%',
     paddingVertical: '2%',
     ...ShadowStyles,
   },
@@ -57,26 +57,27 @@ const styles = StyleSheet.create({
   },
   imagePickerContainer: {
     height: hp('30%'),
-    marginVertical: '3%',
+    marginVertical: '2%',
   },
   textInputContainer: {
     height: hp('10%'),
-    marginVertical: '3%',
+    marginVertical: '2%',
   },
   dropdownContainer: {
     height: hp('10%'),
-    marginVertical: '3%',
+    marginVertical: '2%',
   },
   dateTimePickerContainer: {
     height: hp('10%'),
-    marginVertical: '3%',
+    marginVertical: '2%',
   },
   buttonContainer: {
     height: hp('8%'),
   },
   switchContainer: {
-    height: hp('8%'),
-    marginTop: '3%',
+    height: hp('10%'),
+    marginTop: '1%',
+    marginBottom: '3%',
   },
 });
 

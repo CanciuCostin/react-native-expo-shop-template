@@ -8,6 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { ShadowStyles } from '@styles/CommonStyles';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const buttonContainerStyle = (backgroundColor: string): ViewStyle => ({
   flex: 1,
@@ -24,6 +25,7 @@ const buttonContainerStyle = (backgroundColor: string): ViewStyle => ({
 const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
+    fontSize: heightPercentageToDP('1.6%'),
   },
 });
 
@@ -67,7 +69,10 @@ export default function CustomButton(props: {
       disabled={props.disabled || loading}
     >
       {loading ? (
-        <ActivityIndicator size="small" color={colors.buttonText} />
+        <ActivityIndicator
+          size={heightPercentageToDP('2%')}
+          color={colors.buttonText}
+        />
       ) : (
         <Text style={[styles.buttonText, { color: colors.buttonText }]}>
           {props.title}

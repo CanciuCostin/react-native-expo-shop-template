@@ -27,12 +27,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     flex: 2,
-    paddingLeft: '1%',
+    paddingLeft: '2%',
     justifyContent: 'center',
     alignContent: 'center',
   },
   dropdownLabel: {
     flex: 1,
+    paddingBottom: '1%',
   },
   modalContainer: {
     flex: 1,

@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   imageInputLabel: {
     flex: 1,
+    paddingBottom: '1%',
   },
   imageIcon: {
     opacity: 0.5,

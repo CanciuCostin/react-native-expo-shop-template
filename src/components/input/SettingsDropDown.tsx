@@ -163,7 +163,7 @@ export default function SettingsDropDown(props: {
                       {props.countryFlags && (
                         <CountryFlag
                           isoCode={props.countryFlags[index]}
-                          size={16}
+                          size={hp('2%')}
                         />
                       )}
                       {Strings.WHITESPACE_CHARACTER + item}
@@ -189,7 +189,7 @@ export default function SettingsDropDown(props: {
             />
           )}
           {props.countryFlag && (
-            <CountryFlag isoCode={props.countryFlag} size={16} />
+            <CountryFlag isoCode={props.countryFlag} size={hp('1.6%')} />
           )}
         </View>
         <CustomText isBold style={[styles.dropdownLabel]}>

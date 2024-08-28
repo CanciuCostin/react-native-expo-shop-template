@@ -4,7 +4,10 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -28,6 +31,17 @@ export default function TabLayout() {
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: true, //useClientOnlyValue(false, true),
+        headerShadowVisible: true,
+        headerStatusBarHeight: hp('5%'),
+        tabBarStyle: {
+          height: hp('6%'),
+        },
+        tabBarLabelStyle: { fontSize: hp('1.6%') },
+        tabBarIconStyle: {
+          height: hp('5%'),
+          width: hp('5%'),
+        },
+        headerTitleStyle: { fontSize: hp('2.5%') },
       }}
     >
       <Tabs.Screen
@@ -50,9 +64,12 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome
                     name="question-circle"
-                    size={25}
+                    size={hp('3%')}
                     color={colors.primary}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    style={{
+                      marginRight: wp('2%'),
+                      opacity: pressed ? 0.5 : 1,
+                    }}
                   />
                 )}
               </Pressable>
