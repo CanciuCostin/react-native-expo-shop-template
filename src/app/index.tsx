@@ -2,11 +2,6 @@ import { StyleSheet, View, Image } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import LottieView from 'lottie-react-native';
 import { router, SplashScreen } from 'expo-router';
-import {
-  DUMMY_PRODUCTS,
-  DUMMY_CATEGORIES,
-  DUMMY_CATEGORY_TAGS,
-} from '@data/DummyDataArrays';
 import { FontAwesome } from '@expo/vector-icons';
 import {
   setProductsAsync,
@@ -17,6 +12,11 @@ import { AppDispatch } from '@state/store';
 import { useFonts } from 'expo-font';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
+import {
+  fetchCategories,
+  fetchProducts,
+  fetchTags,
+} from '@service/productService';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,20 +51,32 @@ export default function SplashAnimation() {
 
   useEffect(() => {
     // Perform some sort of async data or asset fetching
+    if (process.env.EXPO_PUBLIC_BACKEND_URL === undefined) {
+      throw new Error('Backend URL is not defined');
+    }
+    if (process.env.EXPO_PUBLIC_PRODUCTS_ENDPOINT === undefined) {
+      throw new Error('Products endpoint is not defined');
+    }
+    if (process.env.EXPO_PUBLIC_CATEGORIES_ENDPOINT === undefined) {
+      throw new Error('Categories endpoint is not defined');
+    }
+    if (process.env.EXPO_PUBLIC_TAGS_ENDPOINT === undefined) {
+      throw new Error('Tags endpoint is not defined');
+    }
     setTimeout(() => {
       Promise.all([
-        dispatch(setProductsAsync(DUMMY_PRODUCTS)),
-        dispatch(setCategoriesAsync(DUMMY_CATEGORIES)),
-        dispatch(setTagsAsync(DUMMY_CATEGORY_TAGS)),
-        //loadOrders().then((orders) => dispatch(setOrdersAsync(orders))),
-        //loadPersonalizationData().then((personalizationData) =>
-        //  dispatch(setPersonalizationDataAsync(personalizationData)),
-        //),
+        fetchProducts().then((response) =>
+          dispatch(setProductsAsync(response)),
+        ),
+        fetchCategories().then((response) =>
+          dispatch(setCategoriesAsync(response)),
+        ),
+        fetchTags().then((response) => dispatch(setTagsAsync(response))),
       ]).then(() => {
         setDataLoaded(true);
       });
     }, 5000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-  react-hooks/exhaustive-deps
   }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.

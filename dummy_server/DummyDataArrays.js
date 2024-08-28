@@ -1,6 +1,4 @@
-import { Category, Order, OrderStatus, PersonalizationData, Product, ProductTag } from '@models/Types';
-
-export const DUMMY_CATEGORY_TAGS: ProductTag[] = [
+let DUMMY_CATEGORY_TAGS = [
   {
     tagId: '1',
     tagName: 'New',
@@ -23,7 +21,7 @@ export const DUMMY_CATEGORY_TAGS: ProductTag[] = [
   },
 ];
 
-export const DUMMY_PRODUCTS: Product[] = [
+let DUMMY_PRODUCTS = [
   {
     productId: '1',
     categoryId: '1',
@@ -35,7 +33,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['5'],
     productDescription: '    Elevate your wardrobe essentials with our Classic Black Cotton T-Shirt. This timeless piece is crafted from 100% premium cotton, ensuring a soft, breathable, and comfortable fit that lasts all day. The minimalist design features a classic crew neck and short sleeves, making it a versatile staple that pairs perfectly with jeans, shorts, or layered under a jacket.\n\n    Our Classic Black Cotton T-Shirt is available in a range of sizes, from XS to XXL, ensuring a perfect fit for every body type. Whether you’re dressing up for a night out or keeping it casual for a day at the beach, this versatile tee is a must-have for every wardrobe.\n\n    Add our Classic Black Cotton T-Shirt to your collection today and enjoy the perfect blend of comfort, style, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 19.99,
     productPriceDiscount: 15.99,
   },
@@ -51,7 +49,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     productTags: ['5'],
     productDescription:
       '    Elevate your wardrobe essentials with our Classic White Cotton T-Shirt. This timeless piece is crafted from 100% premium cotton, ensuring a soft, breathable, and comfortable fit that lasts all day. The minimalist design features a classic crew neck and short sleeves, making it a versatile staple that pairs perfectly with jeans, shorts, or layered under a jacket.\n\n    Our Classic White Cotton T-Shirt is available in a range of sizes, from XS to XXL, ensuring a perfect fit for every body type. Whether you’re dressing up for a night out or keeping it casual for a day at the beach, this versatile tee is a must-have for every wardrobe.\n\n    Add our Classic White Cotton T-Shirt to your collection today and enjoy the perfect blend of comfort, style, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 19.99,
     productPriceDiscount: 15.99,
     },
@@ -65,7 +63,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['4','5'],
     productDescription: '    Elevate your wardrobe essentials with our Classic Red Cotton T-Shirt. This timeless piece is crafted from 100% premium cotton, ensuring a soft, breathable, and comfortable fit that lasts all day. The minimalist design features a classic crew neck and short sleeves, making it a versatile staple that pairs perfectly with jeans, shorts, or layered under a jacket.\n\n    Our Classic Red Cotton T-Shirt is available in a range of sizes, from XS to XXL, ensuring a perfect fit for every body type. Whether you’re dressing up for a night out or keeping it casual for a day at the beach, this versatile tee is a must-have for every wardrobe.\n\n    Add our Classic Red Cotton T-Shirt to your collection today and enjoy the perfect blend of comfort, style, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 19.99,
     productPriceDiscount: 15.99,
   },
@@ -79,7 +77,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['2', '3'],
     productDescription: '    Stay warm and stylish with our White Hoodie. This classic piece is crafted from a soft and cozy cotton blend, ensuring a comfortable fit that lasts all day. The minimalist design features a drawstring hood, kangaroo pocket, and ribbed cuffs and hem, making it a versatile staple that pairs perfectly with jeans, shorts, or layered under a jacket.\n\n    Our White Hoodie is available in a range of sizes, from XS to XXL, ensuring a perfect fit for every body type. Whether you’re dressing up for a night out or keeping it casual for a day at the beach, this versatile hoodie is a must-have for every wardrobe.\n\n    Add our White Hoodie to your collection today and enjoy the perfect blend of comfort, style, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 29.99,
     productPriceDiscount: 25.99,
   },
@@ -93,7 +91,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['3'],
     productDescription: '    Stay warm and stylish with our Black Hoodie. This classic piece is crafted from a soft and cozy cotton blend, ensuring a comfortable fit that lasts all day. The minimalist design features a drawstring hood, kangaroo pocket, and ribbed cuffs and hem, making it a versatile staple that pairs perfectly with jeans, shorts, or layered under a jacket.\n\n    Our Black Hoodie is available in a range of sizes, from XS to XXL, ensuring a perfect fit for every body type. Whether you’re dressing up for a night out or keeping it casual for a day at the beach, this versatile hoodie is a must-have for every wardrobe.\n\n    Add our Black Hoodie to your collection today and enjoy the perfect blend of comfort, style, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 29.99,
     productPriceDiscount: 25.99,
   },
@@ -135,7 +133,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['1'],
     productDescription: '    Stay cool and stylish with our Black Cap. This classic piece is crafted from premium cotton, ensuring a comfortable and breathable fit that’s perfect for everyday wear. The minimalist design features a curved brim, adjustable strap, and embroidered logo, making it a versatile accessory that pairs perfectly with jeans, shorts, or athleisure.\n\n    Our Black Cap is available in a range of sizes and colors, ensuring a perfect fit for every style and taste. Whether you’re running errands, hitting the gym, or lounging at the beach, this versatile cap is a must-have for every wardrobe.\n\n    Add our Black Cap to your collection today and enjoy the perfect blend of style, comfort, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 12.99,
     productPriceDiscount: 9.99,
   },
@@ -149,7 +147,7 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['1'],
     productDescription: '    Stay cool and stylish with our Sun Hat. This classic piece is crafted from premium straw, ensuring a comfortable and breathable fit that’s perfect for sunny days. The minimalist design features a wide brim, adjustable chin strap, and UPF 50+ sun protection, making it a versatile accessory that pairs perfectly with swimsuits, sundresses, or casual wear.\n\n    Our Sun Hat is available in a range of sizes and colors, ensuring a perfect fit for every style and taste. Whether you’re lounging by the pool, strolling through the park, or enjoying a day at the beach, this versatile hat is a must-have for every summer adventure.\n\n    Add our Sun Hat to your collection today and enjoy the perfect blend of style, comfort, and quality.',
-    productOptions: new Map<string, string[]>([["Size", ['XS', 'S', 'M', 'L', 'XL', 'XXL']]]),
+    productOptions: {"Size": ['XS', 'S', 'M', 'L', 'XL', 'XXL']},
     productPrice: 12.99,
     productPriceDiscount: 9.99,
   },
@@ -177,13 +175,13 @@ export const DUMMY_PRODUCTS: Product[] = [
     ],
     productTags: ['3'],
     productDescription: '    Protect your phone in style with our Custom Phone Case. This sleek and durable case is crafted from premium materials, ensuring a secure and long-lasting design that’s perfect for everyday use. The minimalist design features a slim profile, raised edges, and easy access to all ports and buttons, making it a versatile accessory that pairs perfectly with your phone.\n\n    Our Custom Phone Case is available in a range of colors and styles, ensuring a perfect fit for every phone model. Whether you’re running errands, traveling, or heading out for the day, this versatile case is a must-have for every lifestyle.\n\n    Add our Custom Phone Case to your collection today and enjoy the perfect blend of style, protection, and quality.',
-    productOptions: new Map<string, string[]>([["Phone Type", ['Iphone 13', 'Iphone 13 Pro', 'Iphone 13 Pro Max', 'Iphone 13 Mini', 'Iphone 12', 'Iphone 12 Pro', 'Iphone 12 Pro Max', 'Iphone 12 Mini', 'Iphone 11', 'Iphone 11 Pro', 'Iphone 11 Pro Max', 'Iphone 11 Mini']]]),
+    productOptions: {"Phone Type": ['Iphone 13', 'Iphone 13 Pro', 'Iphone 13 Pro Max', 'Iphone 13 Mini', 'Iphone 12', 'Iphone 12 Pro', 'Iphone 12 Pro Max', 'Iphone 12 Mini', 'Iphone 11', 'Iphone 11 Pro', 'Iphone 11 Pro Max', 'Iphone 11 Mini']},
     productPrice: 9.99,
     productPriceDiscount: 5.99,
   },
 ];
 
-export const DUMMY_CATEGORIES: Category[] = [
+let DUMMY_CATEGORIES = [
   {
     categoryId: '1',
     categoryName: 'T-Shirts',
@@ -206,65 +204,8 @@ export const DUMMY_CATEGORIES: Category[] = [
   },
 ];
 
-export const DUMMY_PERSONALIZATION_DATA: PersonalizationData[] = [
-  {
-    id: '1',
-    date: new Date(),
-    message: 'John',
-    image:
-      'https://www.texanerin.com/content/uploads/2019/06/nobake-chocolate-cookies-1-650x975.jpg',
-  },
-  {
-    id: '2',
-    date: new Date(),
-    message: 'Jane',
-    image: '',
-  },
-  {
-    id: '3',
-    date: new Date(),
-    message: 'Doe',
-    image: '',
-  },
-  {
-    id: '4',
-    date: new Date(),
-    message: 'Smith',
-    image: '',
-  },
-];
-
-export const DUMMY_ORDERS: Order[] = [
-  {
-    orderId: '1',
-    orderDate: new Date(),
-    orderStatus: OrderStatus.Pending,
-    productId: '1',
-    personalizationItemId: '1',
-    extraInfo: new Map<string, string>(),
-  },
-  {
-    orderId: '2',
-    orderDate: new Date(),
-    orderStatus: OrderStatus.Processing,
-    productId: '2',
-    personalizationItemId: '2',
-    extraInfo: new Map<string, string>(),
-  },
-  {
-    orderId: '3',
-    orderDate: new Date(),
-    orderStatus: OrderStatus.Delivered,
-    productId: '3',
-    personalizationItemId: '3',
-    extraInfo: new Map<string, string>(),
-  },
-  {
-    orderId: '4',
-    orderDate: new Date(),
-    orderStatus: OrderStatus.Cancelled,
-    productId: '4',
-    personalizationItemId: '4',
-    extraInfo: new Map<string, string>(),
-  },
-];
+module.exports = {
+  DUMMY_CATEGORY_TAGS: DUMMY_CATEGORY_TAGS,
+  DUMMY_PRODUCTS: DUMMY_PRODUCTS,
+  DUMMY_CATEGORIES: DUMMY_CATEGORIES,
+};
