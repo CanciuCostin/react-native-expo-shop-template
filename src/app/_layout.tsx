@@ -11,6 +11,7 @@ import {
   CyanDeepPurpleLightTheme,
 } from '@themes/Themes';
 import { PersistGate } from 'redux-persist/integration/react';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -48,11 +49,17 @@ function RootLayout() {
 
 const AppProvider = () => (
   <I18nextProvider i18n={i18n}>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RootLayout />
-      </PersistGate>
-    </Provider>
+    <StripeProvider
+      publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''}
+      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+    >
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RootLayout />
+        </PersistGate>
+      </Provider>
+    </StripeProvider>
   </I18nextProvider>
 );
 

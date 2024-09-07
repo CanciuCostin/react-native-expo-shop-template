@@ -14,11 +14,12 @@
         "resizeMode": "contain",
         "backgroundColor": "#673AB7",
         "dark": {
-             "image": "./src/assets/images/splash.png",
-             "resizeMode": "contain",
-             "backgroundColor": "#ffffff"
+          "image": "./src/assets/images/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
         }
-      }
+      },
+      "bundleIdentifier": "com.anonymous.reactnativeexpotemplate"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,11 +32,12 @@
         "resizeMode": "contain",
         "backgroundColor": "#673AB7",
         "dark": {
-             "image": "./src/assets/images/splash.png",
-             "resizeMode": "contain",
-             "backgroundColor": "#ffffff"
+          "image": "./src/assets/images/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
         }
-      }      
+      },
+      "package": "com.anonymous.reactnativeexpotemplate"
     },
     "web": {
       "bundler": "metro",
@@ -47,6 +49,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "17b6b090-ccd0-46f1-8694-747bffef7242"
+      }
     }
   }
 }

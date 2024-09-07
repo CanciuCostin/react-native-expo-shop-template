@@ -37,7 +37,7 @@ export default function ProductsListVertical(props: { products: Product[] }) {
           router.navigate(
             personalizationData.length
               ? Screens.personalizationDataPath
-              : Screens.productCreatePath,
+              : Screens.productOrderPath,
           );
         }}
       />

@@ -45,8 +45,9 @@ export default function CustomButton(props: {
     if (props.onPressAsync) {
       props
         .onPressAsync()
+        .catch(() => setLoading(false))
         .then(() => setLoading(false))
-        .catch(() => setLoading(false));
+        .finally(() => setLoading(false));
     } else if (props.onPress) {
       props.onPress();
       setLoading(false);

@@ -41,7 +41,7 @@ export default function PersonalizationDataList() {
         personalizationDataItem={item}
         onPress={() => {
           dispatch(setSelectedPersonalizationDataId(item.id));
-          router.replace(Screens.productCreatePath);
+          router.replace(Screens.productOrderPath);
         }}
       />
     </View>
@@ -59,7 +59,7 @@ export default function PersonalizationDataList() {
           image: undefined,
           date: undefined,
         }}
-        onPress={() => router.replace(Screens.productCreatePath)}
+        onPress={() => router.replace(Screens.productOrderPath)}
       />
       <CustomText fontSize="1.6%" isSecondary style={[styles.label]}>
         {t('selectFromPreviousPersonalizations')}

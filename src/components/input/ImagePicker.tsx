@@ -109,7 +109,7 @@ export default function CustomImagePicker(props: {
             source={
               props.image
                 ? { uri: props.image }
-                : require('@assets/images/image-placeholder.png')
+                : require('@assets/images/image-placeholder.jpeg')
             }
             style={styles.imageContainer}
           />

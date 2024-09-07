@@ -36,6 +36,11 @@ export const setProductsAsync = createAsyncThunk(
   'productsData/setProductsAsync',
   async (products: Product[]) => {
     //await new Promise((resolve) => setTimeout(resolve, 1000));
+    for (let i = 0; i < products.length; i++) {
+      products[i].productOptions = new Map<string, string[]>(
+        products[i].productOptions,
+      );
+    }
     return products;
   },
 );

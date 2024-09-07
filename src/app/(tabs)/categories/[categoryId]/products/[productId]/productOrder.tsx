@@ -1,4 +1,11 @@
-import { View, StyleSheet, Image, ScrollView } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Alert,
+  Animated,
+} from 'react-native';
 import ImagePicker from '@components/input/ImagePicker';
 import DropDown from '@components/input/DropDown';
 import DateTimePicker from '@components/input/DateTimePicker';
@@ -14,7 +21,7 @@ import {
 } from '@models/Types';
 import CustomButton from '@components/input/CustomButton';
 import CustomSwitch from '@components/input/CustomSwitch';
-import { useRef, useState, Fragment } from 'react';
+import { useRef, useState, Fragment, useEffect } from 'react';
 import { useTheme } from '@react-navigation/native';
 import CustomText from '@components/CustomText';
 import TermsAndConditions from '@components/TermsAndConditions';
@@ -31,6 +38,9 @@ import { router } from 'expo-router';
 import Screens from '@constants/Screens';
 import { useTranslation } from 'react-i18next';
 import { ShadowStyles } from '@styles/CommonStyles';
+import ProductPayment from '@components/ProductPayment';
+import { useStripe } from '@stripe/stripe-react-native';
+import { fetchPaymentSheetParams } from '@service/paymentService';
 
 const styles = StyleSheet.create({
   container: {
@@ -94,7 +104,7 @@ function initProductOptions(
   return productOptionsMap;
 }
 
-export default function ProductCreateScreen() {
+export default function ProductOrderScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
@@ -147,6 +157,63 @@ export default function ProductCreateScreen() {
     personalizationDataItem?.message || '',
   );
   const [termsApproved, setTermsApproved] = useState<boolean>(false);
+  // Payment
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string>();
+
+  const initialisePaymentSheet = async () => {
+    const { paymentIntent, ephemeralKey, customer } =
+      await fetchPaymentSheetParams();
+    setClientSecret(paymentIntent);
+
+    const { error } = await initPaymentSheet({
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      customFlow: false,
+      merchantDisplayName: 'Example Inc.',
+      style: 'alwaysDark',
+      applePay: {
+        merchantCountryCode: 'RO',
+      },
+      googlePay: {
+        merchantCountryCode: 'RO',
+        testEnv: true, // use test environment
+      },
+    });
+    if (!error) {
+      setPaymentSheetEnabled(true);
+    }
+  };
+
+  useEffect(() => {
+    // In your app’s checkout, make a network request to the backend and initialize PaymentSheet.
+    // To reduce loading time, make this request before the Checkout button is tapped, e.g. when the screen is loaded.
+    initialisePaymentSheet();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const openPaymentSheet = async () => {
+    if (!clientSecret) {
+      throw new Error('Client secret is not set');
+    }
+    if (paymentSheetEnabled) {
+      await initialisePaymentSheet();
+    }
+    const { error } = await presentPaymentSheet({
+      clientSecret,
+    } as any);
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+      setPaymentSheetEnabled(false);
+      throw new Error(error.message);
+    } else {
+      Alert.alert('Success', 'The payment was confirmed successfully');
+    }
+    setPaymentSheetEnabled(false);
+  };
 
   const FormSchema = z.object({
     message: z
@@ -185,12 +252,12 @@ export default function ProductCreateScreen() {
       return hp('40%');
     }
     if (errors.switch) {
-      return hp('50%');
+      return 0;
     }
     return 0;
   }
 
-  function onButtonPress(): Promise<void> {
+  function validateForm(): Promise<void> {
     return new Promise((resolve, reject) => {
       // persistor.purge().then(() => {
       //   resolve();
@@ -202,43 +269,60 @@ export default function ProductCreateScreen() {
         message: message,
         switch: termsApproved,
       });
-      if (isFormValid) {
-        const personalizationDataObject: PersonalizationData = {
-          id: personalizationDataItem?.id || Crypto.randomUUID(),
-          date: date,
-          message: message,
-          image: image,
-        };
-        // TODO: Request to create order. Parse response
-        const order: Order = {
-          orderId: Crypto.randomUUID(),
-          orderDate: new Date(Date.now()),
-          orderStatus: OrderStatus.Pending,
-          productId: selectedProductId,
-          personalizationItemId: personalizationDataObject.id,
-          extraInfo: productOptions,
-        };
-        dispatch(
-          createOrUpdatePersonalizationDataAsync(personalizationDataObject),
-        ).then(() =>
-          dispatch(createOrderAsync(order))
-            .then(() => {
-              setSelectedPersonalizationDataId(undefined);
-              router.dismissAll();
-              router.replace(Screens.ordersListPath);
-            })
-            .then(() => resolve()),
-        );
-      } else {
+      if (!isFormValid) {
         console.log(errors);
-        scrollViewRef.current?.scrollTo({
-          x: getScrollOffset(),
-          animated: true,
-        });
-        reject();
+        const scrollOffset = getScrollOffset();
+        if (scrollOffset === 0) {
+          scrollViewRef.current?.scrollToEnd({ animated: true });
+        } else {
+          scrollViewRef.current?.scrollTo({ y: scrollOffset, animated: true });
+        }
+        reject('Form validation failed.');
+      } else {
+        resolve();
       }
     });
   }
+
+  function saveOrder(): Promise<void> {
+    //TODO: Handle error on order creation
+    return new Promise((resolve, reject) => {
+      const personalizationDataObject: PersonalizationData = {
+        id: personalizationDataItem?.id || Crypto.randomUUID(),
+        date: date,
+        message: message,
+        image: image,
+      };
+      // TODO: Request to create order. Parse response
+      const order: Order = {
+        orderId: Crypto.randomUUID(),
+        orderDate: new Date(Date.now()),
+        orderStatus: OrderStatus.Pending,
+        productId: selectedProductId,
+        personalizationItemId: personalizationDataObject.id,
+        extraInfo: productOptions,
+      };
+      dispatch(
+        createOrUpdatePersonalizationDataAsync(personalizationDataObject),
+      ).then(() =>
+        dispatch(createOrderAsync(order))
+          .then(() => {
+            setSelectedPersonalizationDataId(undefined);
+            router.dismissAll();
+            router.replace(Screens.ordersListPath);
+          })
+          .then(() => resolve()),
+      );
+    });
+  }
+
+  const onButtonPress = () =>
+    validateForm()
+      .then(() => openPaymentSheet())
+      .then(() => saveOrder())
+      .catch((err) => {
+        console.log({ err });
+      }); //TODO: Handle error on order creation
 
   return (
     <View style={[styles.container]}>
@@ -329,6 +413,7 @@ export default function ProductCreateScreen() {
       <View style={[styles.buttonContainer, { backgroundColor: colors.card }]}>
         <CustomButton
           title={t('orderButton')}
+          disabled={!paymentSheetEnabled}
           onPressAsync={onButtonPress}
         ></CustomButton>
       </View>

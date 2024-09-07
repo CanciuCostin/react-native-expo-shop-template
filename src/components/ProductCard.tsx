@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 3,
     marginLeft: '3%',
   },
-  productCreateContainer: {
+  productOrderContainer: {
     flex: 2,
     marginVertical: '3%',
   },
@@ -73,7 +73,7 @@ export default function ProductCard(props: {
             {props.product.productTitle}
           </CustomText>
         </View>
-        <View style={styles.productCreateContainer}>
+        <View style={styles.productOrderContainer}>
           <CustomButton
             title={t('orderButton')}
             onPress={props.onCreatePress}

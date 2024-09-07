@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     top: '25%',
   },
   appIcon: {
+    bottom: '10%',
     width: '100%',
   },
 });
@@ -66,7 +67,10 @@ export default function SplashAnimation() {
     setTimeout(() => {
       Promise.all([
         fetchProducts().then((response) =>
-          dispatch(setProductsAsync(response)),
+          dispatch(setProductsAsync(response)).catch((error) => {
+            console.error('Error fetching products:', error);
+            throw new Error(error);
+          }),
         ),
         fetchCategories().then((response) =>
           dispatch(setCategoriesAsync(response)),

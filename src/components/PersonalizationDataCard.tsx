@@ -71,7 +71,7 @@ export default function PersonalizationDataCard(props: {
           source={
             props.personalizationDataItem.image
               ? { uri: props.personalizationDataItem.image }
-              : require('@assets/images/image-placeholder.png')
+              : require('@assets/images/image-placeholder.jpeg')
           }
         />
       )}
