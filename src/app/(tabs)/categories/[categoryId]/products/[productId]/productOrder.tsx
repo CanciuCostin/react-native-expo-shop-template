@@ -1,16 +1,9 @@
-import {
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Alert,
-  Animated,
-} from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
 import ImagePicker from '@components/input/ImagePicker';
 import DropDown from '@components/input/DropDown';
 import DateTimePicker from '@components/input/DateTimePicker';
 import CustomTextInput from '@components/input/CustomTextInput';
-import { AppDispatch, persistor, RootState } from '@state/store';
+import { AppDispatch, RootState } from '@state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductsHelper from '@helpers/ProductsHelper';
 import {
@@ -257,8 +250,8 @@ export default function ProductOrderScreen() {
   }
 
   function validateForm(): Promise<void> {
-    console.log('Validating form');
     return new Promise((resolve, reject) => {
+      // Uncomment to clear the persisted data
       // persistor.purge().then(() => {
       //   resolve();
       // });
@@ -270,7 +263,8 @@ export default function ProductOrderScreen() {
         switch: termsApproved,
       });
       if (!isFormValid) {
-        console.log(errors);
+        //Uncomment to see the errors
+        //console.log(errors);
         const scrollOffset = getScrollOffset();
         if (scrollOffset === 0) {
           scrollViewRef.current?.scrollToEnd({ animated: true });
@@ -293,7 +287,7 @@ export default function ProductOrderScreen() {
         message: message,
         image: image,
       };
-      // TODO: Request to create order. Parse response
+      // TODO: Server request to create order. Parse response
       const order: Order = {
         orderId: Crypto.randomUUID(),
         orderDate: new Date(Date.now()),
@@ -321,8 +315,9 @@ export default function ProductOrderScreen() {
       .then(() => openPaymentSheet())
       .then(() => saveOrder())
       .catch((err) => {
-        console.log({ err });
-      }); //TODO: Handle error on order creation
+        //Uncomment to see the error
+        //console.log({ err });
+      });
 
   return (
     <View style={[styles.container]}>

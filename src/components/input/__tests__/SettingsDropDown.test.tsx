@@ -28,7 +28,7 @@ describe('SettingsDropDown Component', () => {
   });
 
   it('closes the modal when the close button is pressed', () => {
-    const { queryByTestId, getByTestId, getByText, queryByRole } = render(
+    const { queryByTestId, getByTestId, getByText } = render(
       <SettingsDropDown dropdownItems={dropdownItems} label={label} />,
     );
 

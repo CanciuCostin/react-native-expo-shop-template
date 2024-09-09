@@ -4,9 +4,7 @@ import React from 'react';
 import { AppDispatch, RootState } from '@state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import PersonalizationDataCard from '@components/PersonalizationDataCard';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import CustomText from '@components/CustomText';
-import { useTheme } from '@react-navigation/native';
 import { router } from 'expo-router';
 import Screens from '@constants/Screens';
 import { setSelectedPersonalizationDataId } from '@state/productsDataSlice';
@@ -31,7 +29,6 @@ export default function PersonalizationDataList() {
     (state: RootState) => state.productsData.personalizationData,
   );
 
-  const { colors } = useTheme();
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
 

@@ -1,4 +1,4 @@
 export default {
-    WHITESPACE_CHARACTER: ' ',
-    MANDATORY_CHARACTER: '*',
-}
+  WHITESPACE_CHARACTER: ' ',
+  MANDATORY_CHARACTER: '*',
+};

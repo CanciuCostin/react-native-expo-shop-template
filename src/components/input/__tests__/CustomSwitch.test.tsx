@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import CustomSwitch from '@components/input/CustomSwitch';
-import { screen } from '@testing-library/react-native';
 
 describe('CustomSwitch', () => {
   it('renders correctly with default props', () => {

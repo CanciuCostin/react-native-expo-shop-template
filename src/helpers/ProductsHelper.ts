@@ -37,7 +37,7 @@ export default class ProductsHelper {
     categoryId: string | undefined,
     categories: Category[],
   ): string => {
-    if(categoryId === undefined) return '';
+    if (categoryId === undefined) return '';
     return (
       categories.find((category) => category.categoryId === categoryId)
         ?.categoryName || ''

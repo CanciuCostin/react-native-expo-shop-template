@@ -12,7 +12,7 @@ describe('ProductsHelper', () => {
       productDescription: 'Description 1',
       productPrice: 0,
       productPriceDiscount: 0,
-      productOptions: undefined
+      productOptions: undefined,
     },
     {
       categoryId: '1',
@@ -23,7 +23,7 @@ describe('ProductsHelper', () => {
       productDescription: 'Description 2',
       productPrice: 0,
       productPriceDiscount: 0,
-      productOptions: undefined
+      productOptions: undefined,
     },
     {
       categoryId: '2',
@@ -34,7 +34,7 @@ describe('ProductsHelper', () => {
       productDescription: 'Description 3',
       productPrice: 0,
       productPriceDiscount: 0,
-      productOptions: undefined
+      productOptions: undefined,
     },
     {
       categoryId: '2',
@@ -45,7 +45,7 @@ describe('ProductsHelper', () => {
       productDescription: 'Description 4',
       productPrice: 0,
       productPriceDiscount: 0,
-      productOptions: undefined
+      productOptions: undefined,
     },
   ];
 
@@ -87,7 +87,7 @@ describe('ProductsHelper', () => {
           productDescription: 'Description 1',
           productPrice: 0,
           productPriceDiscount: 0,
-          productOptions: undefined
+          productOptions: undefined,
         },
       ]);
     });
@@ -109,7 +109,7 @@ describe('ProductsHelper', () => {
           productDescription: 'Description 1',
           productPrice: 0,
           productPriceDiscount: 0,
-          productOptions: undefined
+          productOptions: undefined,
         },
         {
           categoryId: '1',
@@ -120,7 +120,7 @@ describe('ProductsHelper', () => {
           productDescription: 'Description 2',
           productPrice: 0,
           productPriceDiscount: 0,
-          productOptions: undefined
+          productOptions: undefined,
         },
       ]);
     });
@@ -147,7 +147,7 @@ describe('ProductsHelper', () => {
         productDescription: 'Description 1',
         productPrice: 0,
         productPriceDiscount: 0,
-        productOptions: undefined
+        productOptions: undefined,
       });
     });
 
@@ -183,7 +183,6 @@ describe('ProductsHelper', () => {
 
   describe('getPersonalizationDataBasedOnId', () => {
     it('should return the personalization data with the specified id', () => {
-
       const result = ProductsHelper.getPersonalizationDataBasedOnId(
         '2',
         personalizationData,

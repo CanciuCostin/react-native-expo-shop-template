@@ -88,7 +88,8 @@ export default function SettingsScreen() {
                 ? (process.env.EXPO_PUBLIC_RATE_APP_URL_ANDROID as string)
                 : (process.env.EXPO_PUBLIC_RATE_APP_URL_IOS as string),
             ).catch((err) => {
-              console.error(err);
+              //Uncomment the line below to see the error in the console
+              //console.error(err);
             })
           }
         />

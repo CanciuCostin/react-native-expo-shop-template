@@ -68,7 +68,8 @@ export default function SplashAnimation() {
       Promise.all([
         fetchProducts().then((response) =>
           dispatch(setProductsAsync(response)).catch((error) => {
-            console.error('Error fetching products:', error);
+            //Uncomment the line below to see the error in the console
+            //console.error('Error fetching products:', error);
             throw new Error(error);
           }),
         ),

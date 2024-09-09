@@ -1,5 +1,5 @@
-import {Theme} from '@react-navigation/native'
-import Colors from '@constants/Colors'
+import { Theme } from '@react-navigation/native';
+import Colors from '@constants/Colors';
 
 interface ExtendedTheme extends Theme {
   // Reference the Theme type's colors field and make our field an intersection
@@ -12,33 +12,33 @@ interface ExtendedTheme extends Theme {
     secondaryText: string;
     oddItems: string;
     shadowColor: string;
-    linkColor:  string;
+    linkColor: string;
     splashScreenBackground: string;
-  }
+  };
 }
 
 declare module '@react-navigation/native' {
-    export function useTheme(): ExtendedTheme
-  }
+  export function useTheme(): ExtendedTheme;
+}
 
 export const CyanDeepPurpleLightTheme: ExtendedTheme = {
-    dark: false,
-    colors: {
-      primary: Colors.purple,
-      background: Colors.grayLight,
-      card: Colors.white,
-      text: Colors.grayDarkest,
-      border: Colors.gray,
-      notification: Colors.red,
-      accent: Colors.purpleAccent,
-      buttonText: Colors.white,
-      secondaryText: Colors.grayDarkest,
-      oddItems: Colors.grayLightest,
-      shadowColor: Colors.black,
-      linkColor: Colors.blue,
-      splashScreenBackground: Colors.purple,
-    },
-  };
+  dark: false,
+  colors: {
+    primary: Colors.purple,
+    background: Colors.grayLight,
+    card: Colors.white,
+    text: Colors.grayDarkest,
+    border: Colors.gray,
+    notification: Colors.red,
+    accent: Colors.purpleAccent,
+    buttonText: Colors.white,
+    secondaryText: Colors.grayDarkest,
+    oddItems: Colors.grayLightest,
+    shadowColor: Colors.black,
+    linkColor: Colors.blue,
+    splashScreenBackground: Colors.purple,
+  },
+};
 
 export const CyanDeepPurpleDarkTheme: ExtendedTheme = {
   dark: false,
@@ -55,6 +55,6 @@ export const CyanDeepPurpleDarkTheme: ExtendedTheme = {
     oddItems: Colors.grayDarkest,
     shadowColor: Colors.white,
     linkColor: Colors.blue,
-    splashScreenBackground: Colors.purpleDark
+    splashScreenBackground: Colors.purpleDark,
   },
 };

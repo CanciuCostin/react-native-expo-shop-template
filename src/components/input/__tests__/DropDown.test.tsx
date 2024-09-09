@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import DropDown from '@components/input/DropDown';
-import { screen } from '@testing-library/react-native';
 
 describe('DropDown', () => {
   const dropdownItems = ['Option 1', 'Option 2', 'Option 3'];

@@ -7,7 +7,7 @@ export type Product = {
   productDescription: string;
   productPrice: number;
   productPriceDiscount: number;
-  productOptions: Map<string,string[]> | undefined;
+  productOptions: Map<string, string[]> | undefined;
 };
 
 export type ProductTag = {
@@ -25,13 +25,13 @@ export type PersonalizationData = {
   date: Date | undefined;
   message: string;
   image: string | undefined;
-}
+};
 
 export enum OrderStatus {
   Pending = 'Pending',
   Processing = 'Processing',
   Delivered = 'Delivered',
-  Cancelled = 'Cancelled'
+  Cancelled = 'Cancelled',
 }
 
 export type Order = {
