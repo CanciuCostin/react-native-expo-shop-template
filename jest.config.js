@@ -4,7 +4,7 @@ module.exports = {
     setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
     testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/'],
     transformIgnorePatterns: [
-      'node_modules/(?!(@react-native|react-native|expo|@expo|expo-modules-core|react-redux|@unimodules)/)',
+      'node_modules/(?!(@react-native|react-native|expo|@expo|expo-modules-core|react-redux|@unimodules|react-native-responsive-screen|expo-font|expo-asset|expo-constants|@react-native-community|expo-image-picker)/)',
     ],
     transform: {
       '^.+\\.(js|ts|tsx)$': 'babel-jest',

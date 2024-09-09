@@ -38,7 +38,6 @@ import { router } from 'expo-router';
 import Screens from '@constants/Screens';
 import { useTranslation } from 'react-i18next';
 import { ShadowStyles } from '@styles/CommonStyles';
-import ProductPayment from '@components/ProductPayment';
 import { useStripe } from '@stripe/stripe-react-native';
 import { fetchPaymentSheetParams } from '@service/paymentService';
 
@@ -206,7 +205,7 @@ export default function ProductOrderScreen() {
     } as any);
 
     if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message);
+      Alert.alert(`Payment Failed! Error code: ${error.code}`, error.message);
       setPaymentSheetEnabled(false);
       throw new Error(error.message);
     } else {
@@ -258,6 +257,7 @@ export default function ProductOrderScreen() {
   }
 
   function validateForm(): Promise<void> {
+    console.log('Validating form');
     return new Promise((resolve, reject) => {
       // persistor.purge().then(() => {
       //   resolve();
@@ -390,6 +390,7 @@ export default function ProductOrderScreen() {
           <InputValidationError errors={errors.dateTime?._errors || []} />
           <View style={styles.textInputContainer}>
             <CustomTextInput
+              testID="messageInput"
               isRequired
               label={t('enterMessage')}
               placeholder={t('messagePlaceholder')}
@@ -401,6 +402,7 @@ export default function ProductOrderScreen() {
           <InputValidationError errors={errors.message?._errors || []} />
           <View style={styles.switchContainer}>
             <CustomSwitch
+              testID="termsSwitch"
               isEnabled={termsApproved}
               onToggle={() => setTermsApproved(!termsApproved)}
               text={<TermsAndConditions />}
@@ -412,6 +414,7 @@ export default function ProductOrderScreen() {
       </ScrollView>
       <View style={[styles.buttonContainer, { backgroundColor: colors.card }]}>
         <CustomButton
+          testID="orderButton"
           title={t('orderButton')}
           disabled={!paymentSheetEnabled}
           onPressAsync={onButtonPress}

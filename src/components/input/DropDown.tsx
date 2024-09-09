@@ -86,6 +86,7 @@ export default function DropDown(props: {
 
   return (
     <View
+      testID="dropdown-container"
       style={[
         styles.dropdownContainer,
         {
@@ -95,6 +96,7 @@ export default function DropDown(props: {
       ]}
     >
       <Modal
+        testID="modal-window"
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -139,6 +141,7 @@ export default function DropDown(props: {
                 }
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
+                    testID="modal-item"
                     style={[
                       styles.modalListItem,
                       index % 2
@@ -154,7 +157,11 @@ export default function DropDown(props: {
                       setModalVisible(false);
                     }}
                   >
-                    <CustomText isSecondary style={styles.dropdownItemText}>
+                    <CustomText
+                      testID={item}
+                      isSecondary
+                      style={styles.dropdownItemText}
+                    >
                       {item}
                     </CustomText>
                   </TouchableOpacity>
@@ -164,7 +171,7 @@ export default function DropDown(props: {
           </View>
         </View>
       </Modal>
-      <CustomText isBold style={[styles.dropdownLabel]}>
+      <CustomText testID="dropdown-label" isBold style={[styles.dropdownLabel]}>
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'default-icon'}
@@ -182,7 +189,7 @@ export default function DropDown(props: {
         style={[styles.dropdown, { borderColor: colors.border }]}
         onPress={() => setModalVisible(true)}
       >
-        <CustomText isSecondary>
+        <CustomText testID="selected-item" isSecondary>
           {props.selectedItem + Strings.WHITESPACE_CHARACTER}
           <FontAwesome
             name="angle-down"

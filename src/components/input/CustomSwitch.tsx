@@ -32,6 +32,7 @@ export default function CustomSwitch(props: {
   text?: any;
   backgroundColor?: string;
   applySettingsStyling?: boolean;
+  testID?: string;
 }) {
   const { colors } = useTheme();
 
@@ -64,6 +65,7 @@ export default function CustomSwitch(props: {
       </View>
       <View style={styles.switchToggleContainer}>
         <Switch
+          testID={props.testID || 'custom-switch'}
           trackColor={{ false: colors.secondaryText, true: colors.primary }}
           thumbColor={props.isEnabled ? colors.buttonText : colors.border}
           ios_backgroundColor={colors.background}

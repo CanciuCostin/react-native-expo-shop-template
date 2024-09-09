@@ -1,12 +1,12 @@
 import CustomText from '@components/CustomText';
 import { useTheme } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import { InputValidationErrorStyles } from '@styles/CommonStyles';
+import { StyleSheet, TextStyle } from 'react-native';
 
 const styles = StyleSheet.create({
   errorText: {
-    paddingLeft: '5%',
-    marginBottom: '1%',
-  },
+    ...InputValidationErrorStyles,
+  } as TextStyle,
 });
 
 export default function InputValidationError(props: { errors: string[] }) {
@@ -14,6 +14,7 @@ export default function InputValidationError(props: { errors: string[] }) {
 
   return props.errors.map((error: string) => (
     <CustomText
+      testID="input-validation-error"
       key={error}
       style={[styles.errorText, { color: colors.notification }]}
     >

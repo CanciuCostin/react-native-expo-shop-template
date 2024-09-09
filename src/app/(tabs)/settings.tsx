@@ -46,7 +46,7 @@ export default function SettingsScreen() {
         <CustomText isBold isSecondary style={styles.settingsLabel}>
           {t('preferencesHeader')}
         </CustomText>
-        <LanguageSwitcher />
+        <LanguageSwitcher label={t('language')} />
         <SettingsDropDown
           label={t('interfaceTheme')}
           dropdownItems={['light', 'dark']}

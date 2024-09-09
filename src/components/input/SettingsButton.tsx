@@ -39,6 +39,7 @@ export default function SettingsButton(props: {
   const { colors } = useTheme();
   return (
     <TouchableOpacity
+      testID="settings-button"
       style={[
         styles.container,
         {

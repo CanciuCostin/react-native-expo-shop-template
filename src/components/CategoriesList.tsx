@@ -44,6 +44,7 @@ export default function CategoriesList() {
     return categoryProducts.length > 0 ? (
       <View style={styles.categoriesContainer}>
         <Link
+          testID={'category-item-' + item.categoryId}
           href={{
             pathname: Screens.categoriesDetailsPath,
             params: { categoryId: item.categoryId },

@@ -7,3 +7,10 @@ export const ShadowStyles = {
     shadowRadius: 10,
     elevation: 3
 };
+
+export const InputValidationErrorStyles = {
+  errorText: {
+    paddingLeft: '5%',
+    marginBottom: '1%',
+  },
+};

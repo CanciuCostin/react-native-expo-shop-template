@@ -18,15 +18,22 @@ describe('TagsList Component', () => {
     const initialState: RootState = {
       productsData: {
         tags: [
-          { tagId: 1, tagName: 'React' },
-          { tagId: 2, tagName: 'JavaScript' },
-          { tagId: 3, tagName: 'Expo' },
+          { tagId: '1', tagName: 'React' },
+          { tagId: '2', tagName: 'JavaScript' },
+          { tagId: '3', tagName: 'Expo' },
         ],
         products: [],
         categories: [],
-        selectedCategoryId: 0,
-        selectedProductId: 0,
+        selectedCategoryId: '0',
+        selectedProductId: '0',
         selectedTags: [],
+        orders: [],
+        personalizationData: [],
+        selectedPersonalizationDataId: undefined,
+        _persist: {
+          version: 0,
+          rehydrated: false,
+        }, // Assign an empty object to _persist property
       },
     };
     const store = mockStore(initialState);

@@ -37,6 +37,7 @@ export default function CustomButton(props: {
   disabled?: boolean;
   backgroundColor?: string;
   otherProps?: any;
+  testID?: string;
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -60,6 +61,7 @@ export default function CustomButton(props: {
 
   return (
     <TouchableOpacity
+      testID={props.testID || 'custom-button'}
       {...props.otherProps}
       onPress={handleOnPress}
       style={[

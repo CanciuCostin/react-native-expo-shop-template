@@ -65,6 +65,7 @@ export default function CustomDateTimePicker(props: {
 
   return (
     <View
+      testID="dateTimePickerContainer"
       style={[
         styles.container,
         {
@@ -88,6 +89,7 @@ export default function CustomDateTimePicker(props: {
         </CustomText>
       </CustomText>
       <TouchableOpacity
+        testID="dateTimeContainer"
         style={[styles.dateTimeContainer, { borderColor: colors.border }]}
         onPress={showDatepicker}
       >

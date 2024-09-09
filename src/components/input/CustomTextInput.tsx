@@ -37,6 +37,7 @@ export default function CustomTextInput(props: {
   labelProps?: any;
   textProps?: any;
   iconProps?: any;
+  testID?: string;
 }) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -68,6 +69,7 @@ export default function CustomTextInput(props: {
         </CustomText>
       </CustomText>
       <TextInput
+        testID={props.testID || 'customTextInput'}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         value={props.value}

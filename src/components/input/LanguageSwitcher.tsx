@@ -16,7 +16,7 @@ function getLanguageFromCode(code: string): SupportedLanguage | undefined {
   return SUPPORTED_LANGUAGES.find((lang) => lang.code === code);
 }
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher(props: { label: string }) {
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState(getLanguageFromCode(i18n.language));
 
@@ -38,7 +38,7 @@ export default function LanguageSwitcher() {
         )}
         countryFlag={language?.flagIsoCode}
         countryFlags={SUPPORTED_LANGUAGES.map((lng) => lng.flagIsoCode)}
-        label={i18n.t('language')}
+        label={props.label}
         dropdownItems={SUPPORTED_LANGUAGES.map((lng) => lng.name)}
         onValueChange={changeLanguage}
       />

@@ -74,7 +74,11 @@ export default function CustomImagePicker(props: {
         },
       ]}
     >
-      <CustomText isBold style={[styles.imageInputTitle]}>
+      <CustomText
+        testID="imageInputLabel"
+        isBold
+        style={[styles.imageInputTitle]}
+      >
         {props.icon && (
           <FontAwesome
             name={(props.icon as any) || 'info'}
@@ -88,7 +92,11 @@ export default function CustomImagePicker(props: {
             Strings.WHITESPACE_CHARACTER + Strings.MANDATORY_CHARACTER}
         </CustomText>
       </CustomText>
-      <CustomText isSecondary style={styles.imageInputLabel}>
+      <CustomText
+        testID="imageInputNotice"
+        isSecondary
+        style={styles.imageInputLabel}
+      >
         <FontAwesome
           name="lock"
           size={hp('1.8%')}
@@ -97,6 +105,7 @@ export default function CustomImagePicker(props: {
         {Strings.WHITESPACE_CHARACTER + props.notice}
       </CustomText>
       <TouchableOpacity
+        testID="imagePickerContainer"
         style={[
           styles.imagePickerContainer,
           { backgroundColor: colors.background, borderColor: colors.border },
@@ -105,6 +114,7 @@ export default function CustomImagePicker(props: {
       >
         {props.image ? (
           <Image
+            testID="selectedImage"
             resizeMode="contain"
             source={
               props.image

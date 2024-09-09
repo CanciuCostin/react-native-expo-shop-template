@@ -101,6 +101,7 @@ export default function SettingsDropDown(props: {
       ]}
     >
       <Modal
+        testID="modal"
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -111,6 +112,7 @@ export default function SettingsDropDown(props: {
       >
         <View style={styles.modalContainer}>
           <TouchableOpacity
+            testID="close-button"
             onPress={() => setModalVisible(false)}
             style={styles.closeModalButton}
           >
@@ -145,6 +147,7 @@ export default function SettingsDropDown(props: {
                 }
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
+                    testID={item}
                     style={[
                       styles.modalListItem,
                       index % 2
@@ -177,12 +180,14 @@ export default function SettingsDropDown(props: {
       </Modal>
 
       <TouchableOpacity
+        testID="dropdown"
         style={[styles.dropdown, { borderColor: colors.border }]}
         onPress={() => setModalVisible(true)}
       >
-        <View style={styles.dropdownIcon}>
+        <View testID="dropdown-icon-view" style={styles.dropdownIcon}>
           {props.icon && (
             <FontAwesome
+              testID={props.icon}
               name={(props.icon as any) || 'default-icon'}
               size={hp('2%')}
               color={colors.primary}
@@ -195,7 +200,11 @@ export default function SettingsDropDown(props: {
         <CustomText isBold style={[styles.dropdownLabel]}>
           {Strings.WHITESPACE_CHARACTER + props.label}
         </CustomText>
-        <CustomText isSecondary style={styles.dropdownSelectedItem}>
+        <CustomText
+          testID="selected-item"
+          isSecondary
+          style={styles.dropdownSelectedItem}
+        >
           {dropdownItem + Strings.WHITESPACE_CHARACTER}
           <FontAwesome
             name="angle-right"

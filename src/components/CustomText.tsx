@@ -7,6 +7,7 @@ function getAndroidFont(isBold: boolean | undefined) {
 }
 
 export default function CustomText(props: {
+  testID?: string;
   isSecondary?: boolean;
   isBold?: boolean;
   style?: any;
@@ -22,5 +23,12 @@ export default function CustomText(props: {
   if (Platform.OS === 'android') {
     textStyle.fontFamily = getAndroidFont(props.isBold);
   }
-  return <Text style={[textStyle, props.style || {}]}>{props.children}</Text>;
+  return (
+    <Text
+      testID={props.testID || 'custom-text'}
+      style={[textStyle, props.style || {}]}
+    >
+      {props.children}
+    </Text>
+  );
 }
