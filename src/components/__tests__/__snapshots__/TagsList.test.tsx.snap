@@ -105,6 +105,7 @@ exports[`TagsList Component matches snapshot 1`] = `
                 {
                   "color": "rgb(28, 28, 30)",
                   "fontSize": 24,
+                  "fontWeight": "normal",
                 },
                 {},
               ]
@@ -175,6 +176,7 @@ exports[`TagsList Component matches snapshot 1`] = `
                 {
                   "color": "rgb(28, 28, 30)",
                   "fontSize": 24,
+                  "fontWeight": "normal",
                 },
                 {},
               ]
@@ -245,6 +247,7 @@ exports[`TagsList Component matches snapshot 1`] = `
                 {
                   "color": "rgb(28, 28, 30)",
                   "fontSize": 24,
+                  "fontWeight": "normal",
                 },
                 {},
               ]
