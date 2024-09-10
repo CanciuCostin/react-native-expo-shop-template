@@ -34,15 +34,17 @@ const styles = StyleSheet.create({
   dropdownLabel: {
     flex: 5,
     textAlignVertical: 'center',
+    alignSelf: 'center',
   },
   dropdownSelectedItem: {
     textAlignVertical: 'center',
+    alignSelf: 'center',
     textAlign: 'right',
     flex: 3,
   },
   modalContainer: {
     flex: 1,
-    maxHeight: hp('40%'),
+    maxHeight: hp('20%'),
     width: '60%',
     marginTop: '60%',
     alignSelf: 'center',
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     ...ShadowStyles,
   },
   closeModalButton: {
-    flex: 1,
+    flex: 2,
     alignItems: 'flex-end',
   },
   modalList: {
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 6,
   },
   modalLabel: {
-    flex: 1,
+    flex: 2,
     paddingTop: '5%',
   },
   modalListItem: {
@@ -73,6 +75,7 @@ const styles = StyleSheet.create({
   },
   dropdownItemText: {
     textAlign: 'center',
+    alignSelf: 'center',
   },
 });
 

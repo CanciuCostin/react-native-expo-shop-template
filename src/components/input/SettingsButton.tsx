@@ -21,9 +21,11 @@ const styles = StyleSheet.create({
   buttonLabel: {
     flex: 5,
     textAlignVertical: 'center',
+    alignSelf: 'center',
   },
   buttonValue: {
     textAlignVertical: 'center',
+    alignSelf: 'center',
     textAlign: 'right',
     flex: 3,
   },

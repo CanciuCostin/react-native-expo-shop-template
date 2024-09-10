@@ -1,10 +1,10 @@
 export const ShadowStyles = {
   shadowOffset: {
-    width: 0,
-    height: 0,
+    width: -2,
+    height: 4,
   },
-  shadowOpacity: 0.5,
-  shadowRadius: 10,
+  shadowOpacity: 0.2,
+  shadowRadius: 3,
   elevation: 3,
 };
 

@@ -18,6 +18,7 @@ export default function CustomText(props: {
   const textStyle: any = {
     color: props.isSecondary ? colors.secondaryText : colors.text,
     fontSize: props.fontSize ? hp(props.fontSize) : hp('1.8%'),
+    fontWeight: props.isBold ? 'bold' : 'normal',
   };
 
   if (Platform.OS === 'android') {

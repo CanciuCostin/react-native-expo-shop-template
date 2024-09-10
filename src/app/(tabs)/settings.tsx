@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
   },
   settingsLabel: {
     flex: 1,
-    textAlignVertical: 'center',
     paddingHorizontal: '5%',
+    paddingTop: '3%',
   },
   copyrights: {
     flex: 1,
     textAlign: 'center',
-    textAlignVertical: 'center',
+    paddingTop: '3%',
   },
 });
 
@@ -43,7 +43,7 @@ export default function SettingsScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.preferencesContainer}>
-        <CustomText isBold isSecondary style={styles.settingsLabel}>
+        <CustomText isSecondary style={styles.settingsLabel}>
           {t('preferencesHeader')}
         </CustomText>
         <LanguageSwitcher label={t('language')} />
@@ -64,7 +64,7 @@ export default function SettingsScreen() {
         />
       </View>
       <View style={styles.notificationsContainer}>
-        <CustomText isBold isSecondary style={styles.settingsLabel}>
+        <CustomText isSecondary style={styles.settingsLabel}>
           {t('dataHeader')}
         </CustomText>
 
@@ -76,7 +76,7 @@ export default function SettingsScreen() {
         <SettingsButton icon="bank" label={t('invoices')} onPress={() => {}} />
       </View>
       <View style={styles.applicationContainer}>
-        <CustomText isBold isSecondary style={styles.settingsLabel}>
+        <CustomText isSecondary style={styles.settingsLabel}>
           {t('applicationHeader')}
         </CustomText>
         <SettingsButton

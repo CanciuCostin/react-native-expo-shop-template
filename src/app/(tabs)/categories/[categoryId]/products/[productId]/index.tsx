@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     textAlign: 'justify',
+    marginVertical: hp('1.5%'),
   },
 });
 

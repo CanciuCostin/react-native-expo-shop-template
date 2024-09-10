@@ -15,3 +15,11 @@ export async function fetchPaymentSheetParams() {
     customer,
   };
 }
+
+export async function fetchPublishableKey() {
+  const response = await fetch(
+    `${process.env.EXPO_PUBLIC_STRIPE_PAYMENT_URL}/stripe-key`,
+  );
+  const { publishableKey } = await response.json();
+  return publishableKey;
+}

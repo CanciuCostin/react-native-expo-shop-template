@@ -1,4 +1,12 @@
-import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import ImagePicker from '@components/input/ImagePicker';
 import DropDown from '@components/input/DropDown';
 import DateTimePicker from '@components/input/DateTimePicker';
@@ -166,9 +174,12 @@ export default function ProductOrderScreen() {
       customFlow: false,
       merchantDisplayName: 'Example Inc.',
       style: 'alwaysDark',
-      applePay: {
-        merchantCountryCode: 'RO',
-      },
+      // Configure the payment sheet to use the return URL in the app
+      returnURL: 'payments-example://stripe-redirect',
+      // Uncomment to enable Apple Pay
+      // applePay: {
+      //   merchantCountryCode: 'RO',
+      // },
       googlePay: {
         merchantCountryCode: 'RO',
         testEnv: true, // use test environment
@@ -320,7 +331,11 @@ export default function ProductOrderScreen() {
       });
 
   return (
-    <View style={[styles.container]}>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset={hp('10%')}
+      behavior="padding"
+      style={[styles.container]}
+    >
       <ScrollView
         contentContainerStyle={{ backgroundColor: colors.background }}
         ref={scrollViewRef}
@@ -415,6 +430,6 @@ export default function ProductOrderScreen() {
           onPressAsync={onButtonPress}
         ></CustomButton>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

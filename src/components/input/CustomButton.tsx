@@ -25,7 +25,7 @@ const buttonContainerStyle = (backgroundColor: string): ViewStyle => ({
 const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
-    fontSize: heightPercentageToDP('1.6%'),
+    fontSize: heightPercentageToDP('1.4%'),
   },
 });
 

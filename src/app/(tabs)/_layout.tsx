@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Pressable, Platform } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import {
@@ -33,8 +33,9 @@ export default function TabLayout() {
         headerShown: true, //useClientOnlyValue(false, true),
         headerShadowVisible: true,
         headerStatusBarHeight: hp('5%'),
+
         tabBarStyle: {
-          height: hp('6%'),
+          height: Platform.OS === 'ios' ? hp('9%') : hp('6%'),
         },
         tabBarLabelStyle: { fontSize: hp('1.6%') },
         tabBarIconStyle: {
@@ -42,6 +43,7 @@ export default function TabLayout() {
           width: hp('5%'),
         },
         headerTitleStyle: { fontSize: hp('2.5%') },
+        headerTitleAlign: 'left',
       }}
     >
       <Tabs.Screen
@@ -67,7 +69,7 @@ export default function TabLayout() {
                     size={hp('3%')}
                     color={colors.primary}
                     style={{
-                      marginRight: wp('2%'),
+                      marginRight: wp('5%'),
                       opacity: pressed ? 0.5 : 1,
                     }}
                   />

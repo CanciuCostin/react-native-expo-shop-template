@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     flex: 13,
   },
   switchToggleContainer: {
+    alignItems: 'flex-end',
     flex: 3,
   },
 });

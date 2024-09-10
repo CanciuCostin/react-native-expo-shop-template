@@ -16,14 +16,16 @@ const CategoryDetailsLayout = () => {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
+        //headerShown: true,
+        headerShown: false,
         headerTitle: t('productsHeader'),
       }}
     >
       <Stack.Screen
         name="index"
         options={{
-          headerShown: true,
+          //headerShown: true,
+          headerShown: false,
           headerTitle: ProductsHelper.getCategoryNameBasedOnId(
             selectedCategoryId,
             categories,
