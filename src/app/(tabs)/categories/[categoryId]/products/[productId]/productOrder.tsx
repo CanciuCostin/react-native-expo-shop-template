@@ -5,7 +5,6 @@ import {
   ScrollView,
   Alert,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import ImagePicker from '@components/input/ImagePicker';
 import DropDown from '@components/input/DropDown';
