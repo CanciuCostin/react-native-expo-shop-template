@@ -34,6 +34,7 @@ Run the app on your own device using Expo GO:
 - **Husky pre-commit hooks**: Run ESLint & Prettier before you push your code.
 - **Testing Ready**: Setup for unit and integration tests with [Jest](https://jestjs.io/) and [React Native Testing Library](https://callstack.github.io/react-native-testing-library/).
 - **Splash Screen**: Custom splash screen using Lottie animation
+- **Video Player**: Integrated modal with VideoPlayer component.
 <img src="https://github.com/user-attachments/assets/1e42cb30-b784-45c5-b240-132c8b8d337a" width="100">
 
 ## 📦 Quick Start
