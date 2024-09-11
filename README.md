@@ -12,6 +12,12 @@ This template implements a lightweight e-commerce shop for customizable products
 <img src="https://github.com/user-attachments/assets/119c99f4-3ef3-4e0a-adb9-ef8c6d11f39c" width="148">)
 <img src="https://github.com/user-attachments/assets/d5056159-abaa-48e9-8a14-7f835b6f15bf" width="148">
 
+## 🌐 Demo
+
+Run the app on your own device using Expo GO:
+
+![image](https://github.com/user-attachments/assets/6374db3a-1374-4ae3-9ffb-6505caecc70f)
+
 ## 🚀 Features
 
 - **Seamless Expo Integration**: Effortlessly develop, build, and deploy your app with Expo's powerful tools.
@@ -29,13 +35,6 @@ This template implements a lightweight e-commerce shop for customizable products
 - **Testing Ready**: Setup for unit and integration tests with [Jest](https://jestjs.io/) and [React Native Testing Library](https://callstack.github.io/react-native-testing-library/).
 - **Splash Screen**: Custom splash screen using Lottie animation
 <img src="https://github.com/user-attachments/assets/1e42cb30-b784-45c5-b240-132c8b8d337a" width="100">
-
-## 🌐 Demo
-
-Run the app on your own device using Expo GO:
-
-![image](https://github.com/user-attachments/assets/6374db3a-1374-4ae3-9ffb-6505caecc70f)
-
 
 ## 📦 Quick Start
 
