@@ -3,16 +3,14 @@
 Welcome to the **React Native Expo Shop Template** repository! This project is your go-to starter kit for building stunning, high-performance mobile applications using [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/).
 This template implements a lightweight e-commerce shop for customizable products. Plenty of features are available, although shopping cart is out of scope.
 
-<img src="https://github.com/user-attachments/assets/3386f5fe-4901-4738-9048-12821d58416f" width="160">
-<img src="https://github.com/user-attachments/assets/22291778-e746-43f1-af4f-fcd465a56e7c" width="160">
-<img src="https://github.com/user-attachments/assets/9f92b514-1c3a-4607-b017-716904d81a11" width="160">
-<img src="https://github.com/user-attachments/assets/7bc281a4-f11a-49b2-8ecf-aa95ad0f48cc" width="160">
-
-
-<img src="https://github.com/user-attachments/assets/de1fb2fe-6cbc-402b-b938-ebbf2b5a4e99" width="160">
-<img src="https://github.com/user-attachments/assets/c4828937-a6cb-44ea-a9aa-a19ca42d5876" width="160">
-<img src="https://github.com/user-attachments/assets/119c99f4-3ef3-4e0a-adb9-ef8c6d11f39c" width="160">)
-<img src="https://github.com/user-attachments/assets/d5056159-abaa-48e9-8a14-7f835b6f15bf" width="160">
+<img src="https://github.com/user-attachments/assets/3386f5fe-4901-4738-9048-12821d58416f" width="140">
+<img src="https://github.com/user-attachments/assets/22291778-e746-43f1-af4f-fcd465a56e7c" width="140">
+<img src="https://github.com/user-attachments/assets/9f92b514-1c3a-4607-b017-716904d81a11" width="140">
+<img src="https://github.com/user-attachments/assets/7bc281a4-f11a-49b2-8ecf-aa95ad0f48cc" width="140">
+<img src="https://github.com/user-attachments/assets/de1fb2fe-6cbc-402b-b938-ebbf2b5a4e99" width="140">
+<img src="https://github.com/user-attachments/assets/c4828937-a6cb-44ea-a9aa-a19ca42d5876" width="140">
+<img src="https://github.com/user-attachments/assets/119c99f4-3ef3-4e0a-adb9-ef8c6d11f39c" width="140">)
+<img src="https://github.com/user-attachments/assets/d5056159-abaa-48e9-8a14-7f835b6f15bf" width="140">
 
 ## 🌐 Demo
 
