@@ -9,7 +9,7 @@ This template implements a lightweight e-commerce shop for customizable products
 <img src="https://github.com/user-attachments/assets/7bc281a4-f11a-49b2-8ecf-aa95ad0f48cc" width="180">
 <img src="https://github.com/user-attachments/assets/de1fb2fe-6cbc-402b-b938-ebbf2b5a4e99" width="180">
 <img src="https://github.com/user-attachments/assets/c4828937-a6cb-44ea-a9aa-a19ca42d5876" width="180">
-<img src="https://github.com/user-attachments/assets/119c99f4-3ef3-4e0a-adb9-ef8c6d11f39c" width="180">)
+<img src="https://github.com/user-attachments/assets/119c99f4-3ef3-4e0a-adb9-ef8c6d11f39c" width="180">
 <img src="https://github.com/user-attachments/assets/d5056159-abaa-48e9-8a14-7f835b6f15bf" width="180">
 
 ## 🌐 Demo
